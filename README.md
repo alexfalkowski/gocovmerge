@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/alexfalkowski/gocovmerge.svg?style=svg)](https://circleci.com/gh/alexfalkowski/gocovmerge)
+
 gocovmerge
 ==========
 
