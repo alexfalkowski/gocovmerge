@@ -28,3 +28,6 @@ lint: ## Lint all the code
 
 fix-lint: ## Fix the lint issues in the code (if possible)
 	golangci-lint run --timeout 5m --fix
+
+build: ## Build release binary
+	go build -mod vendor gocovmerge.go
