@@ -13,13 +13,15 @@ tidy:
 vendor:
 	go mod vendor
 
-get: ## Update a module
+get:
 	go get $(module)
 
 dep: download tidy vendor ## Setup go deps
 
 outdated: ## Check outdated deps
 	go list -u -m -mod=mod -json all | go-mod-outdated -update -direct
+
+update-dep: get tidy vendor ## Update go dep
 
 lint: ## Lint all the code
 	golangci-lint run --timeout 5m
