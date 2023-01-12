@@ -3,17 +3,19 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alexfalkowski/go:1.16
+      - image: alexfalkowski/go:1.19-3.1
     steps:
       - checkout
       - run: make dep
       - run: make lint
+    resource_class: large
   release:
     docker:
-      - image: alexfalkowski/release:2.0
+      - image: alexfalkowski/release:3.0
     steps:
       - checkout
       - run: release
+    resource_class: large
 
 workflows:
   gocovmerge:
