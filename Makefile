@@ -1,8 +1,4 @@
-help: ## Display this help
-	@ echo "Please use \`make <target>' where <target> is one of:"
-	@ echo
-	@ grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "    \033[36m%-10s\033[0m - %s\n", $$1, $$2}'
-	@ echo
+.PHONY: vendor
 
 download:
 	go mod download
@@ -16,18 +12,24 @@ vendor:
 get:
 	go get $(module)
 
-dep: download tidy vendor ## Setup go deps
+## Setup go deps
+dep: download tidy vendor
 
-outdated: ## Check outdated deps
+## Check outdated deps
+outdated:
 	go list -u -m -mod=mod -json all | go-mod-outdated -update -direct
 
-update-dep: get tidy vendor ## Update go dep
+## Update go dep
+update-dep: get tidy vendor
 
-lint: ## Lint all the code
+## Lint all the code
+lint:
 	golangci-lint run --timeout 5m
 
-fix-lint: ## Fix the lint issues in the code (if possible)
+## Fix the lint issues in the code (if possible)
+fix-lint:
 	golangci-lint run --timeout 5m --fix
 
-build: ## Build release binary
+## Build release binary
+build:
 	go build -mod vendor gocovmerge.go
