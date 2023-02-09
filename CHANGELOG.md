@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.1.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.1.0) - 2023-02-09
+
+- [`e07cf87`](https://github.com/alexfalkowski/gocovmerge/commit/e07cf87dddd54fceac6dff4fb353062610020143) feat(go): update to v1.20 (#10)
+- [`7daa63d`](https://github.com/alexfalkowski/gocovmerge/commit/7daa63df70018a500a0891cb0da13467ec8ac370) build: add bin (#9)
+- [`1a2fa8b`](https://github.com/alexfalkowski/gocovmerge/commit/1a2fa8bc537ed6c98b98f96d90d7456c04be36fb) ci(dependabot): change commit message (#8)
+- [`492f427`](https://github.com/alexfalkowski/gocovmerge/commit/492f4277cd6aeb5120e63aaf6eb599c09342da26) build(deps): bump golang.org/x/tools from 0.1.5 to 0.5.0 (#7)
+- [`3299bfb`](https://github.com/alexfalkowski/gocovmerge/commit/3299bfb736e5a0331bffb754f3bf356217392d0a) ci: use release 3.1 (#6)
+- [`ab23696`](https://github.com/alexfalkowski/gocovmerge/commit/ab236967ae8b07a267b30ca948edc206ab202bee) ci: use release 3.0 (#5)
+
 ## [v1.0.4](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.0.4) - 2021-07-19
 
 - [`b042aa3`](https://github.com/alexfalkowski/gocovmerge/commit/b042aa338f2856fdde75d301480e93d0dc0924ba) ci: fix release (#4)
