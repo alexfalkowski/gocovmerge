@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.2.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.2.0) - 2023-08-10
+
+- [`9b0774c`](https://github.com/alexfalkowski/gocovmerge/commit/9b0774c8b0d3afd63b0ba7ff107786f9a9b4ee25) Merge pull request #20 from alexfalkowski/feat/update-go
+- [`7a4e6e3`](https://github.com/alexfalkowski/gocovmerge/commit/7a4e6e3459c5df6e93e1fd828f48561e4fd2eb4c) feat: update go to version 1.21
+
 ## [v1.1.9](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.1.9) - 2023-08-08
 
 - [`358e4bb`](https://github.com/alexfalkowski/gocovmerge/commit/358e4bb119e5875f95346f849d173e4a6a4757ae) fix(deps): bump golang.org/x/tools from 0.11.1 to 0.12.0 (#19)
