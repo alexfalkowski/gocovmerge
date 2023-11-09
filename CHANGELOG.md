@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.2.3](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.2.3) - 2023-11-09
+
+- [`0000c52`](https://github.com/alexfalkowski/gocovmerge/commit/0000c523ee9699ed0915197aaec1431e0fdea921) fix(deps): bump golang.org/x/tools from 0.14.0 to 0.15.0 (#27)
+- [`3bfeb68`](https://github.com/alexfalkowski/gocovmerge/commit/3bfeb685d2af3f57bbe10618ab61ca3c7ea1f66d) build(deps): update bin (#26)
+- [`b73181c`](https://github.com/alexfalkowski/gocovmerge/commit/b73181c15cd02a97616a5c78454446eaf7759646) ci: use go:1.21-ruby (#25)
+- [`d6acb06`](https://github.com/alexfalkowski/gocovmerge/commit/d6acb06820d03349700ed94c79295452104bfb9e) build(deps): update bin (#24)
+- [`15a4d81`](https://github.com/alexfalkowski/gocovmerge/commit/15a4d810ffdd1811691f815bbd13cc1a46d3b808) build(deps): update bin (#23)
+
 ## [v1.2.2](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.2.2) - 2023-10-06
 
 - [`0766c4a`](https://github.com/alexfalkowski/gocovmerge/commit/0766c4a46940f005078282ad12361a67dbb97f8a) fix(deps): bump golang.org/x/tools from 0.13.0 to 0.14.0 (#22)
