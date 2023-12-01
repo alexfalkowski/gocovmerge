@@ -8,3 +8,9 @@ updates:
       prefix: "fix"
       prefix-development: "build"
       include: "scope"
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-name: "bin"
