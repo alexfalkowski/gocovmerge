@@ -33,6 +33,7 @@ func mergeProfileBlock(p *cover.Profile, pb cover.ProfileBlock, startIndex int) 
 
 	sortFunc := func(i int) bool {
 		pi := p.Blocks[i+startIndex]
+
 		return pi.StartLine >= pb.StartLine && (pi.StartLine != pb.StartLine || pi.StartCol >= pb.StartCol)
 	}
 
@@ -42,6 +43,8 @@ func mergeProfileBlock(p *cover.Profile, pb cover.ProfileBlock, startIndex int) 
 	}
 
 	i += startIndex
+
+	//nolint:nestif
 	if i < len(p.Blocks) && p.Blocks[i].StartLine == pb.StartLine && p.Blocks[i].StartCol == pb.StartCol {
 		if p.Blocks[i].EndLine != pb.EndLine || p.Blocks[i].EndCol != pb.EndCol {
 			log.Fatalf("OVERLAP MERGE: %v %v %v", p.FileName, p.Blocks[i], pb)
@@ -62,6 +65,7 @@ func mergeProfileBlock(p *cover.Profile, pb cover.ProfileBlock, startIndex int) 
 				log.Fatalf("OVERLAP BEFORE: %v %v %v", p.FileName, pa, pb)
 			}
 		}
+
 		if i < len(p.Blocks)-1 {
 			pa := p.Blocks[i+1]
 			if pa.StartLine <= pb.StartLine && (pa.StartLine != pb.StartLine || pa.StartCol < pb.StartCol) {

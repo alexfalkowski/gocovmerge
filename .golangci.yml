@@ -1,44 +1,90 @@
+run:
+  skip-dirs:
+    - tmp
 linters-settings:
   lll:
     line-length: 130
+  cyclop:
+    max-complexity: 21
 linters:
   disable-all: true
   enable:
-    - bodyclose
-    - deadcode
-    - depguard
+    - asasalint
+    - asciicheck
+    - bidichk
+    - containedctx
+    - contextcheck
+    - cyclop
+    - decorder
     - dogsled
     - dupl
-    - errcheck
+    - dupword
+    - durationcheck
+    - errchkjson
+    - errname
+    - errorlint
     - exportloopref
+    - execinquery
     - exhaustive
+    - exportloopref
+    - forbidigo
     - funlen
-    - gochecknoinits
+    - gci
+    - gocognit
     - goconst
     - gocritic
     - gocyclo
+    - godot
+    - godox
     - gofmt
+    - gofumpt
+    - goheader
     - goimports
-    - golint
-    - gomnd
+    - gomoddirectives
+    - gomodguard
     - goprintffuncname
     - gosec
+    - gosmopolitan
     - gosimple
-    - govet
-    - ineffassign
+    - grouper
+    - importas
+    - inamedparam
     - lll
+    - loggercheck
+    - maintidx
+    - makezero
+    - mirror
     - misspell
+    - musttag
     - nakedret
+    - nestif
+    - nilerr
+    - nilnil
+    - nlreturn
     - noctx
     - nolintlint
+    - nonamedreturns
+    - nosprintfhostport
+    - perfsprint
+    - prealloc
+    - predeclared
+    - promlinter
+    - protogetter
+    - reassign
+    - revive
     - rowserrcheck
-    - staticcheck
-    - structcheck
+    - sloglint
+    - sqlclosecheck
     - stylecheck
-    - typecheck
+    - tenv
+    - testableexamples
+    - testifylint
+    - testpackage
+    - thelper
+    - tparallel
     - unconvert
     - unparam
     - unused
-    - varcheck
+    - wastedassign
     - whitespace
     - wsl
