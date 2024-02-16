@@ -1,5 +1,5 @@
 module github.com/alexfalkowski/gocovmerge
 
-go 1.21
+go 1.22
 
 require golang.org/x/tools v0.17.0
