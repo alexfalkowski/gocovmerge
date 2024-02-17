@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.3.1](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.1) - 2024-02-17
+
+- [`8fb3f5f`](https://github.com/alexfalkowski/gocovmerge/commit/8fb3f5fb418b21aeffeab2bc1fe34635d8604168) fix: toolchain (#39)
+
 ## [v1.3.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.0) - 2024-02-16
 
 - [`fa9fd54`](https://github.com/alexfalkowski/gocovmerge/commit/fa9fd54af924ee11a6e675639706b0b765874991) feat(go): update to v1.22 (#38)
