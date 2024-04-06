@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.3.4](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.4) - 2024-04-06
+
+- [`d6e6762`](https://github.com/alexfalkowski/gocovmerge/commit/d6e676296433325810f53c3570821b9728dbd358) fix(deps): bump golang.org/x/tools from 0.19.0 to 0.20.0 (#53)
+- [`f82bedd`](https://github.com/alexfalkowski/gocovmerge/commit/f82bedd6adde4813c47557e27e23d703f65100ba) build(deps): bump bin from `ed17684` to `13a7302` (#52)
+- [`5b22d29`](https://github.com/alexfalkowski/gocovmerge/commit/5b22d294e8a06e9af7be5ce69e38152dc80e841a) build(deps): bump bin from `024be7f` to `ed17684` (#51)
+- [`5ced3b9`](https://github.com/alexfalkowski/gocovmerge/commit/5ced3b98648e2bd6505093dce2afa59dc90f0899) build(deps): bump bin from `608889f` to `024be7f` (#50)
+- [`21b4e75`](https://github.com/alexfalkowski/gocovmerge/commit/21b4e75119343cb5f0a35c4e86690ef980dbeecf) build(deps): bump bin from `a19d7ca` to `608889f` (#49)
+- [`04f512e`](https://github.com/alexfalkowski/gocovmerge/commit/04f512e953e7a14e681073f883df84b4cd68c0b4) build(dependabot): change prefixes (#48)
+- [`990ca69`](https://github.com/alexfalkowski/gocovmerge/commit/990ca692e4c7a4b09aedf2b0f03b4ae0fadbc0e2) build(deps): bump bin from `b9b6ae3` to `a19d7ca` (#47)
+- [`6c8ef1d`](https://github.com/alexfalkowski/gocovmerge/commit/6c8ef1d15e4a0b0eefe9aea670475c1b432c0f0e) build(make): add git commands (#46)
+- [`b6967df`](https://github.com/alexfalkowski/gocovmerge/commit/b6967dff5fce0160a5e5e1731c878d2e09bb345f) build(deps): bump bin from `60071ae` to `b9b6ae3` (#45)
+- [`6a3092d`](https://github.com/alexfalkowski/gocovmerge/commit/6a3092d7c454221da3e0c91276c8f5dfd6a1fb8f) build(deps): bump bin from `355347a` to `60071ae` (#44)
+- [`955c2a2`](https://github.com/alexfalkowski/gocovmerge/commit/955c2a2112e86e9e720c402dc93226c612440e45) build(deps): bump bin from `66f6a24` to `355347a` (#43)
+
 ## [v1.3.3](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.3) - 2024-03-14
 
 - [`f585242`](https://github.com/alexfalkowski/gocovmerge/commit/f585242340cd9f30c71f9bad28e69485a4a31eb5) fix: go 1.22.1 (#42)
