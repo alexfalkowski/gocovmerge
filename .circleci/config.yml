@@ -4,17 +4,28 @@ jobs:
   build:
     docker:
       - image: alexfalkowski/go:1.22-ruby
+    working_directory: ~/gocovmerge
     steps:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
+      - restore_cache:
+          name: restore deps
+          keys:
+            - gocovmerge-cache-{{ checksum "go.sum" }}
       - run: make dep
+      - save_cache:
+          name: save deps
+          key: gocovmerge-cache-{{ checksum "go.sum" }}
+          paths:
+            - /home/circleci/go/pkg/mod
       - run: make lint
       - run: make build
     resource_class: large
   release:
     docker:
       - image: alexfalkowski/release:3.1
+    working_directory: ~/gocovmerge
     steps:
       - checkout
       - run: release
