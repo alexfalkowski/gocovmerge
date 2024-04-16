@@ -19,8 +19,18 @@ jobs:
           key: gocovmerge-cache-{{ checksum "go.sum" }}
           paths:
             - /home/circleci/go/pkg/mod
+      - restore_cache:
+          name: restore go build cache
+          keys:
+            - gocovmerge-go-build-cache-{{ checksum "go.sum" }}
       - run: make lint
+      - run: make sec
       - run: make build
+      - save_cache:
+          name: save go build cache
+          key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}
+          paths:
+            - /home/circleci/.cache/go-build
     resource_class: large
   release:
     docker:
