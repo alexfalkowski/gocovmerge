@@ -13,6 +13,7 @@ jobs:
           name: restore deps
           keys:
             - gocovmerge-go-cache-{{ checksum "go.sum" }}
+            - gocovmerge-go-cache-
       - run: make dep
       - save_cache:
           name: save deps
@@ -23,6 +24,7 @@ jobs:
           name: restore go build cache
           keys:
             - gocovmerge-go-build-cache-{{ checksum "go.sum" }}
+            - gocovmerge-go-build-cache-
       - run: make lint
       - run: make sec
       - run: make build
