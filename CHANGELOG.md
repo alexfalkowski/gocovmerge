@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.3.12](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.12) - 2024-08-08
+
+- [`baccb89`](https://github.com/alexfalkowski/gocovmerge/commit/baccb896f47abc8286f66310759da594ad25f581) fix(go): set the go directive to 1.22 (#87)
+
 ## [v1.3.11](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.11) - 2024-08-07
 
 - [`e4976ba`](https://github.com/alexfalkowski/gocovmerge/commit/e4976baff208864a31dd6ef35ea755b0cef63030) fix(go): update go to v1.22.6 (#85)
