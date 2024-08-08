@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.3.13](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.13) - 2024-08-08
+
+- [`16a701e`](https://github.com/alexfalkowski/gocovmerge/commit/16a701ee0136d7fe2953e0dc8da6742cacd0db47) fix(deps): bump golang.org/x/tools from 0.23.0 to 0.24.0 (#86)
+- [`8f830c7`](https://github.com/alexfalkowski/gocovmerge/commit/8f830c7e31f1f7cc5fc64afb04abf8a427ffceed) build(deps): bump bin from `44badfa` to `2d4d510` (#89)
+- [`db5da0f`](https://github.com/alexfalkowski/gocovmerge/commit/db5da0f2d55c23eac4f23b2bb4f41733206bfc6c) build(ci): remove execinquery (#88)
+
 ## [v1.3.12](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.12) - 2024-08-08
 
 - [`baccb89`](https://github.com/alexfalkowski/gocovmerge/commit/baccb896f47abc8286f66310759da594ad25f581) fix(go): set the go directive to 1.22 (#87)
