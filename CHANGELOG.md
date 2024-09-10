@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.3.14](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.14) - 2024-09-10
+
+- [`0da9e18`](https://github.com/alexfalkowski/gocovmerge/commit/0da9e1840a0b117aa645c4c89906a25ff83ff791) fix(deps): bump golang.org/x/tools from 0.24.0 to 0.25.0 (#93)
+- [`49929db`](https://github.com/alexfalkowski/gocovmerge/commit/49929dbf8292e2b84d921493711a5060c0b1d947) build(deps): bump bin from `1eca781` to `376a295` (#94)
+- [`6b292f0`](https://github.com/alexfalkowski/gocovmerge/commit/6b292f07607cdb1efc9fa26eeb12f78e8cef94b2) build(deps): bump bin from `41b7c8b` to `1eca781` (#92)
+- [`f1046f3`](https://github.com/alexfalkowski/gocovmerge/commit/f1046f33c2204df784b714c73892bc963c181649) build(deps): bump bin from `808558f` to `41b7c8b` (#91)
+- [`b132821`](https://github.com/alexfalkowski/gocovmerge/commit/b13282136dc23d8b91bf01b267f067ab588e1edb) build(deps): bump bin from `2d4d510` to `808558f` (#90)
+
 ## [v1.3.13](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.13) - 2024-08-08
 
 - [`16a701e`](https://github.com/alexfalkowski/gocovmerge/commit/16a701ee0136d7fe2953e0dc8da6742cacd0db47) fix(deps): bump golang.org/x/tools from 0.23.0 to 0.24.0 (#86)
