@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.3.18](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.18) - 2025-01-14
+
+- [`b0f14f7`](https://github.com/alexfalkowski/gocovmerge/commit/b0f14f7da01a4839964f7f4e346b4d734750e15b) fix(deps): bump golang.org/x/tools from 0.28.0 to 0.29.0 (#104)
+- [`9d1f6fb`](https://github.com/alexfalkowski/gocovmerge/commit/9d1f6fb489b7fe90576b44ca4532a5f55a8920c1) build(deps): bump bin from `bde1e44` to `cb313fe` (#106)
+- [`bc22b54`](https://github.com/alexfalkowski/gocovmerge/commit/bc22b5476aff11292232ed545e8123dd651746d0) build(deps): bump bin from `cf4a7d3` to `bde1e44` (#103)
+
 ## [v1.3.17](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.17) - 2024-12-10
 
 - [`f7d0220`](https://github.com/alexfalkowski/gocovmerge/commit/f7d0220e5750ab4eec389b916e254e70f1244c8c) fix(deps): bump golang.org/x/tools from 0.27.0 to 0.28.0 (#101)
