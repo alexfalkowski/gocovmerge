@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.4.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.4.0) - 2025-02-11
+
+- [`ea41ba0`](https://github.com/alexfalkowski/gocovmerge/commit/ea41ba0a98beb6e6f576d90b90eaebdad0a0a8d2) feat(deps): bump golang.org/x/tools from 0.29.0 to 0.30.0 (#113)
+- [`93c65ca`](https://github.com/alexfalkowski/gocovmerge/commit/93c65ca193f85bf53e966e8abc9a9dca4310f480) build(deps): bump bin from `5b56b0c` to `3e0336a` (#112)
+- [`64bf234`](https://github.com/alexfalkowski/gocovmerge/commit/64bf23416eea082ef0918eff6c1a8794b319f68a) build(deps): bump bin from `cb313fe` to `5b56b0c` (#110)
+- [`900cf5a`](https://github.com/alexfalkowski/gocovmerge/commit/900cf5a49131b8d2efe10975edc9bfd816c73c3b) build(ci): use alexfalkowski/go:1.7 (#109)
+- [`5220b86`](https://github.com/alexfalkowski/gocovmerge/commit/5220b869b5856dbdbbcc6998074e710c9581ef3f) build(ci): update go:1.5 (#108)
+- [`e243ba9`](https://github.com/alexfalkowski/gocovmerge/commit/e243ba91ce8a571de8de46e36a394b23fd1628b7) build(ci): use feat for dependabot (#107)
+
 ## [v1.3.18](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.3.18) - 2025-01-14
 
 - [`b0f14f7`](https://github.com/alexfalkowski/gocovmerge/commit/b0f14f7da01a4839964f7f4e346b4d734750e15b) fix(deps): bump golang.org/x/tools from 0.28.0 to 0.29.0 (#104)
