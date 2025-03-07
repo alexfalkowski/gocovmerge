@@ -6,8 +6,8 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - exportloopref
     - tagalign
     - bodyclose
     - exhaustruct
     - varnamelen
+    - tenv
