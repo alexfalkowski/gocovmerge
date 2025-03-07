@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.6.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.6.0) - 2025-03-07
+
+- [`41efb4e`](https://github.com/alexfalkowski/gocovmerge/commit/41efb4eb8a3ddb3115be6a61081f3e265c318776) feat(deps): bump to go v1.23 (#122)
+
 ## [v1.5.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.5.0) - 2025-03-07
 
 - [`08e0881`](https://github.com/alexfalkowski/gocovmerge/commit/08e0881ec395adb34fffc14d8a5ace707de12489) feat(deps): bump golang.org/x/tools from 0.30.0 to 0.31.0 (#121)
