@@ -1,13 +1,37 @@
-linters-settings:
-  lll:
-    line-length: 130
-  cyclop:
-    max-complexity: 21
+version: "2"
 linters:
-  enable-all: true
+  default: all
   disable:
-    - tagalign
     - bodyclose
     - exhaustruct
+    - tagalign
     - varnamelen
-    - tenv
+    - depguard
+  settings:
+    cyclop:
+      max-complexity: 21
+    lll:
+      line-length: 130
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
