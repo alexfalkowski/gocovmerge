@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alexfalkowski/go:2.2
+      - image: alexfalkowski/go:2.3
     working_directory: ~/gocovmerge
     steps:
       - checkout
@@ -14,6 +14,7 @@ jobs:
           keys:
             - gocovmerge-go-cache-{{ checksum "go.sum" }}
             - gocovmerge-go-cache-
+      - run: make clean
       - run: make dep
       - save_cache:
           name: save deps
@@ -25,6 +26,7 @@ jobs:
           keys:
             - gocovmerge-go-build-cache-{{ checksum "go.sum" }}
             - gocovmerge-go-build-cache-
+      - run: make clean
       - run: make lint
       - run: make sec
       - run: make build
