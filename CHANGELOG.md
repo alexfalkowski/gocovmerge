@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.7.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.7.0) - 2025-04-09
+
+- [`05a0f27`](https://github.com/alexfalkowski/gocovmerge/commit/05a0f278ee3c37d60f9f72c50667214607c47239) feat(deps): bump golang.org/x/tools from 0.31.0 to 0.32.0 (#131)
+- [`cef8113`](https://github.com/alexfalkowski/gocovmerge/commit/cef8113df9aeac8b015f74a3990ab9d4ca23ccb6) build(deps): bump bin from `c88983e` to `68f9c91` (#130)
+- [`cbbe172`](https://github.com/alexfalkowski/gocovmerge/commit/cbbe172c04b6ed907c7706c817b0bd60602e2a97) build(ci): use alexfalkowski/go:2.5 (#129)
+- [`ad50747`](https://github.com/alexfalkowski/gocovmerge/commit/ad5074795fbc01895ef89a4a4569883a8b54d8db) build(deps): bump bin from `c88983e` to `78af843` (#128)
+- [`ea9df60`](https://github.com/alexfalkowski/gocovmerge/commit/ea9df6083edf8c53186c474098e0c29824e166d6) build(ci): add clean (#127)
+- [`4df8640`](https://github.com/alexfalkowski/gocovmerge/commit/4df8640490811bb6cd67ae992d816fdbad25e286) build(deps): bump bin from `c661929` to `1dfe733` (#125)
+- [`e4a79dd`](https://github.com/alexfalkowski/gocovmerge/commit/e4a79dd162209a9858048ab9019344a9be813fab) build(deps): bump bin from `8e1a9ac` to `63f13e1` (#123)
+- [`9ea01ae`](https://github.com/alexfalkowski/gocovmerge/commit/9ea01ae4f3d96bcab0933eebc81f233e631c5d87) build(ci): use alexfalkowski/go:2.2 (#124)
+
 ## [v1.6.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.6.0) - 2025-03-07
 
 - [`41efb4e`](https://github.com/alexfalkowski/gocovmerge/commit/41efb4eb8a3ddb3115be6a61081f3e265c318776) feat(deps): bump to go v1.23 (#122)
