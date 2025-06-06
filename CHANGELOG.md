@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.9.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.9.0) - 2025-06-06
+
+- [`e10b830`](https://github.com/alexfalkowski/gocovmerge/commit/e10b830849f17a51521e41015dea6cbf1d96f0d7) feat(deps): bump golang.org/x/tools from 0.33.0 to 0.34.0 (#155)
+- [`61e3da2`](https://github.com/alexfalkowski/gocovmerge/commit/61e3da22f7a63e65ef8cdf9ef1fcfb405355951c) build(deps): bump bin from `810b10e` to `9c21752` (#154)
+- [`37c6901`](https://github.com/alexfalkowski/gocovmerge/commit/37c6901cd4a2975cfc3bf7c290dd1f21347b11e5) build(ci): use alexfalkowski/go:2.24 (#153)
+- [`87eef3a`](https://github.com/alexfalkowski/gocovmerge/commit/87eef3a007f61cf7b5d918085f02cde8ce75372c) build(ci): use alexfalkowski/go:2.22 (#151)
+- [`1ad1160`](https://github.com/alexfalkowski/gocovmerge/commit/1ad116072a47862f4d00c645e8b1d8f79ff2327d) build(deps): bump bin from `eeb0425` to `810b10e` (#150)
+- [`48ac98a`](https://github.com/alexfalkowski/gocovmerge/commit/48ac98a13475e75d4d9982b531f9246300b33d35) build(deps): bump bin from `c59b166` to `eeb0425` (#149)
+- [`2a5b329`](https://github.com/alexfalkowski/gocovmerge/commit/2a5b3292afff60c3d4a155c9978bb88c99ea94c3) build(deps): bump bin from `ac9a5b2` to `c59b166` (#146)
+- [`64c6338`](https://github.com/alexfalkowski/gocovmerge/commit/64c6338524add716c460eddad1856657be7f917b) build(ci): use alexfalkowski/go:2.17 (#145)
+- [`f509e23`](https://github.com/alexfalkowski/gocovmerge/commit/f509e23b638baceadef3d3565d516f4302fbf1a9) build(deps): bump bin from `652fb33` to `ac9a5b2` (#144)
+- [`5247f63`](https://github.com/alexfalkowski/gocovmerge/commit/5247f6335f345a99827ae5b7206befa35b90b15b) build(deps): bump bin from `926a71b` to `652fb33` (#143)
+- [`3ee35a8`](https://github.com/alexfalkowski/gocovmerge/commit/3ee35a819d072f358498f6b1f28cc2a9065f101b) build(ci): use alexfalkowski/go:2.16 (#142)
+- [`79a1951`](https://github.com/alexfalkowski/gocovmerge/commit/79a1951566d91d6c87949b11875117fe34e5cf57) build(ci): remove toolchain (#141)
+
 ## [v1.8.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.8.0) - 2025-05-06
 
 - [`5b696d0`](https://github.com/alexfalkowski/gocovmerge/commit/5b696d0357904178f0f7a6aa356fad6d163dab50) feat(deps): bump golang.org/x/tools from 0.32.0 to 0.33.0 (#140)
