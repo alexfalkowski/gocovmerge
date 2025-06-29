@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.11.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.11.0) - 2025-06-29
+
+- [`31a27bf`](https://github.com/alexfalkowski/gocovmerge/commit/31a27bf052db8f8a24c100b4e3b0858cca414f05) feat(release): git submodule (#164)
+- [`626f270`](https://github.com/alexfalkowski/gocovmerge/commit/626f270324fd3d3fca2c3a5b6481e85fcbe1b26b) feat(release): get latest when releasing (#163)
+
 ## [v1.10.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.10.0) - 2025-06-29
 
 - [`4c8ef19`](https://github.com/alexfalkowski/gocovmerge/commit/4c8ef192745ff4a14273121705c5a9303311b878) feat(release): add gocovmerge to releases (#162)
