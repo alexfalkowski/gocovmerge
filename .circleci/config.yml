@@ -42,6 +42,7 @@ jobs:
     working_directory: ~/gocovmerge
     steps:
       - checkout
+      - run: make pull
       - run: release
     resource_class: large
 
