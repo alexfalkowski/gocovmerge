@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.10.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.10.0) - 2025-06-29
+
+- [`4c8ef19`](https://github.com/alexfalkowski/gocovmerge/commit/4c8ef192745ff4a14273121705c5a9303311b878) feat(release): add gocovmerge to releases (#162)
+- [`c837c11`](https://github.com/alexfalkowski/gocovmerge/commit/c837c11d1544a27d2b80a770fef5e273fb530d84) build(deps): bump bin from `255c12c` to `c9044eb` (#161)
+- [`35905ad`](https://github.com/alexfalkowski/gocovmerge/commit/35905ad262dc3464f831660bf5ff0f710a630b6a) build(deps): bump bin from `9c21752` to `255c12c` (#157)
+- [`cbd482c`](https://github.com/alexfalkowski/gocovmerge/commit/cbd482cac125bccff3215ce2160a107f166b9d6a) build(ci): use alexfalkowski/go:2.26 (#156)
+
 ## [v1.9.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.9.0) - 2025-06-06
 
 - [`e10b830`](https://github.com/alexfalkowski/gocovmerge/commit/e10b830849f17a51521e41015dea6cbf1d96f0d7) feat(deps): bump golang.org/x/tools from 0.33.0 to 0.34.0 (#155)
