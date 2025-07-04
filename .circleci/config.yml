@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alexfalkowski/go:2.30
+      - image: alexfalkowski/go:2.34
     working_directory: ~/gocovmerge
     steps:
       - checkout
@@ -38,7 +38,7 @@ jobs:
     resource_class: large
   release:
     docker:
-      - image: alexfalkowski/release:3.27
+      - image: alexfalkowski/release:3.28
     working_directory: ~/gocovmerge
     steps:
       - checkout

@@ -1,15 +1,22 @@
 version: "2"
 linters:
   default: all
+  enable:
+    - wsl_v5
   disable:
     - exhaustruct
     - varnamelen
     - depguard
+    - wsl
   settings:
     cyclop:
       max-complexity: 21
     lll:
       line-length: 130
+    wsl_v5:
+      allow-first-in-block: true
+      allow-whole-block: false
+      branch-max-lines: 2
   exclusions:
     generated: lax
     presets:
