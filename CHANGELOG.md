@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.0.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.0.0) - 2025-07-05
+
+- [`eaaedaf`](https://github.com/alexfalkowski/gocovmerge/commit/eaaedaff51b5d09cd68b2f33c9a0ede688fe3f00) feat(main): move to internal package (#167)
+- [`c8453ec`](https://github.com/alexfalkowski/gocovmerge/commit/c8453ec70befa48d0796a663f86a640e85dc675a) build(ci): use alexfalkowski/go:2.34 (#166)
+- [`0ea6f3a`](https://github.com/alexfalkowski/gocovmerge/commit/0ea6f3aa6484cba8b59817b41f0fba4414a0f245) build(ci): ignore dist (#165)
+
 ## [v1.11.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v1.11.0) - 2025-06-29
 
 - [`31a27bf`](https://github.com/alexfalkowski/gocovmerge/commit/31a27bf052db8f8a24c100b4e3b0858cca414f05) feat(release): git submodule (#164)
