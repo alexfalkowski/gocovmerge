@@ -11,11 +11,11 @@ gocovmerge -help
 
 Usage of gocovmerge:
   -d string
-        directory of files (if missing files passed in)
+        directory of files (if missing paths passed in)
   -o string
         output file (if missing stdout)
   -p string
-        pattern to filter directory
+        pattern to filter directory (if missing all files)
 ```
 
 You can only merge profiles that were generated from the same source code.

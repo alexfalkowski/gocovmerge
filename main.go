@@ -23,8 +23,8 @@ func main() {
 	)
 
 	flag.StringVar(&out, "o", "", "output file (if missing stdout)")
-	flag.StringVar(&dir, "d", "", "directory of files (if missing files passed in)")
-	flag.StringVar(&pattern, "p", "", "pattern to filter directory")
+	flag.StringVar(&dir, "d", "", "directory of files (if missing paths passed in)")
+	flag.StringVar(&pattern, "p", "", "pattern to filter directory (if missing all files)")
 	flag.Parse()
 
 	if len(out) > 0 {
@@ -38,7 +38,7 @@ func main() {
 		output = os.Stdout
 	}
 
-	if len(dir) > 0 && len(pattern) > 0 {
+	if len(dir) > 0 {
 		f, err := path.Files(dir, pattern)
 		if err != nil {
 			log.Fatal(err)

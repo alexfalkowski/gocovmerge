@@ -8,7 +8,7 @@ import (
 
 // Files that match a pattern in dir.
 func Files(dir, pattern string) ([]string, error) {
-	re, err := regexp.Compile(pattern)
+	re, err := regex(pattern)
 	if err != nil {
 		return nil, err
 	}
@@ -24,7 +24,7 @@ func Files(dir, pattern string) ([]string, error) {
 			return nil
 		}
 
-		if re.MatchString(path) {
+		if re == nil || re.MatchString(path) {
 			files = append(files, path)
 		}
 
@@ -35,4 +35,12 @@ func Files(dir, pattern string) ([]string, error) {
 	}
 
 	return files, nil
+}
+
+func regex(pattern string) (*regexp.Regexp, error) {
+	if len(pattern) > 0 {
+		return regexp.Compile(pattern)
+	}
+
+	return nil, nil
 }
