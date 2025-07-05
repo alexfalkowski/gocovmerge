@@ -4,6 +4,7 @@ package main
 
 import (
 	"flag"
+	"io"
 	"log"
 	"os"
 
@@ -11,9 +12,26 @@ import (
 )
 
 func main() {
+	var (
+		outputFile string
+		out        io.Writer
+	)
+
+	flag.StringVar(&outputFile, "o", "", "output file")
 	flag.Parse()
 
-	if err := cmd.Run(os.Stdout, flag.Args()); err != nil {
+	if len(outputFile) > 0 {
+		f, err := os.Create(outputFile)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		out = f
+	} else {
+		out = os.Stdout
+	}
+
+	if err := cmd.Run(out, flag.Args()); err != nil {
 		log.Fatal(err)
 	}
 }
