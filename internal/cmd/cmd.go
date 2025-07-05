@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/alexfalkowski/gocovmerge/internal/cover"
+	"github.com/alexfalkowski/gocovmerge/v2/internal/cover"
 )
 
 // Run the command.
