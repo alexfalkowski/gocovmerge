@@ -9,29 +9,47 @@ import (
 	"os"
 
 	"github.com/alexfalkowski/gocovmerge/v2/internal/cmd"
+	"github.com/alexfalkowski/gocovmerge/v2/internal/path"
 )
 
 func main() {
 	var (
-		outputFile string
-		out        io.Writer
+		out     string
+		dir     string
+		pattern string
+
+		files  []string
+		output io.Writer
 	)
 
-	flag.StringVar(&outputFile, "o", "", "output file (if missing stdout)")
+	flag.StringVar(&out, "o", "", "output file (if missing stdout)")
+	flag.StringVar(&dir, "d", "", "directory of files (if missing files passed in)")
+	flag.StringVar(&pattern, "p", "", "pattern to filter directory")
 	flag.Parse()
 
-	if len(outputFile) > 0 {
-		f, err := os.Create(outputFile)
+	if len(out) > 0 {
+		f, err := os.Create(out)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		out = f
+		output = f
 	} else {
-		out = os.Stdout
+		output = os.Stdout
 	}
 
-	if err := cmd.Run(out, flag.Args()); err != nil {
+	if len(dir) > 0 && len(pattern) > 0 {
+		f, err := path.Files(dir, pattern)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		files = f
+	} else {
+		files = flag.Args()
+	}
+
+	if err := cmd.Run(output, files); err != nil {
 		log.Fatal(err)
 	}
 }

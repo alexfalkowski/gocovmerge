@@ -10,9 +10,12 @@ gocovmerge takes the results from multiple `go test -coverprofile` runs and merg
 gocovmerge -help
 
 Usage of gocovmerge:
-  [coverprofiles...]
+  -d string
+        directory of files (if missing files passed in)
   -o string
         output file (if missing stdout)
+  -p string
+        pattern to filter directory
 ```
 
 You can only merge profiles that were generated from the same source code.

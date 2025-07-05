@@ -8,10 +8,10 @@ import (
 )
 
 // Run the command.
-func Run(out io.Writer, args []string) error {
+func Run(out io.Writer, files []string) error {
 	var merged []*cover.Profile
 
-	for _, file := range args {
+	for _, file := range files {
 		profiles, err := cover.ParseProfiles(file)
 		if err != nil {
 			return fmt.Errorf("failed to parse profiles: %w", err)
