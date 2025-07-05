@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.2.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.2.0) - 2025-07-05
+
+- [`f6c059f`](https://github.com/alexfalkowski/gocovmerge/commit/f6c059f385750177f7f98b7d8c557f73090d74ec) feat(out): add the ability to write to a file (#170)
+
 ## [v2.1.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.1.0) - 2025-07-05
 
 - [`13da671`](https://github.com/alexfalkowski/gocovmerge/commit/13da671bae46f9e5b2e64c7bbe53fc46455ffdbc) feat(package): move to github.com/alexfalkowski/gocovmerge/v2 (#169)
