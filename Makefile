@@ -3,4 +3,4 @@ include bin/build/make/git.mak
 
 # Build release binary.
 build:
-	@go build -race -mod vendor gocovmerge.go
+	@go build -race -mod vendor main.go
