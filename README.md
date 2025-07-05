@@ -2,16 +2,18 @@
 
 # gocovmerge
 
-gocovmerge takes the results from multiple `go test -coverprofile` runs and
-merges them into one profile.
+gocovmerge takes the results from multiple `go test -coverprofile` runs and merges them into one profile.
 
 ## usage
 
 ```bash
-gocovmerge [coverprofiles...]
-```
+gocovmerge -help
 
-gocovmerge takes the source coverprofiles as the arguments (output from `go test -coverprofile coverage.out`) and outputs a merged version of the files to standard out.
+Usage of gocovmerge:
+  [coverprofiles...]
+  -o string
+        output file (if missing stdout)
+```
 
 You can only merge profiles that were generated from the same source code.
 

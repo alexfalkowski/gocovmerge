@@ -17,7 +17,7 @@ func main() {
 		out        io.Writer
 	)
 
-	flag.StringVar(&outputFile, "o", "", "output file")
+	flag.StringVar(&outputFile, "o", "", "output file (if missing stdout)")
 	flag.Parse()
 
 	if len(outputFile) > 0 {
