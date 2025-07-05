@@ -4,9 +4,12 @@ linters:
   enable:
     - wsl_v5
   disable:
+    - err113
     - exhaustruct
-    - varnamelen
     - depguard
+    - gochecknoglobals
+    - noinlineerr
+    - varnamelen
     - wsl
   settings:
     cyclop:
