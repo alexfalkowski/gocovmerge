@@ -8,6 +8,7 @@ linters:
     - exhaustruct
     - depguard
     - gochecknoglobals
+    - nilnil
     - noinlineerr
     - varnamelen
     - wrapcheck
