@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/alexfalkowski/gocovmerge/internal/cmd"
+	"github.com/alexfalkowski/gocovmerge/v2/internal/cmd"
 )
 
 func main() {
