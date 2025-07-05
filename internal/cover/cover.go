@@ -14,7 +14,10 @@ type Profile = cover.Profile
 
 var (
 	// ErrInvalidMode for cover.
-	ErrInvalidMode = errors.New("can not merge profiles with different modes")
+	ErrInvalidMode = errors.New("invalid profiles merge with different modes")
+
+	// ErrEmptyProfiles for cover.
+	ErrEmptyProfiles = errors.New("empty profiles")
 
 	// ParseProfiles is an alias of cover.ParseProfiles.
 	ParseProfiles = cover.ParseProfiles
@@ -38,18 +41,26 @@ func AddProfile(profiles []*cover.Profile, p *cover.Profile) ([]*cover.Profile, 
 }
 
 // WriteProfiles to out.
-func WriteProfiles(profiles []*cover.Profile, out io.Writer) {
+func WriteProfiles(profiles []*cover.Profile, out io.Writer) error {
 	if len(profiles) == 0 {
-		return
+		return ErrEmptyProfiles
 	}
 
-	fmt.Fprintf(out, "mode: %s\n", profiles[0].Mode)
+	_, err := fmt.Fprintf(out, "mode: %s\n", profiles[0].Mode)
+	if err != nil {
+		return err
+	}
 
 	for _, p := range profiles {
 		for _, b := range p.Blocks {
-			fmt.Fprintf(out, "%s:%d.%d,%d.%d %d %d\n", p.FileName, b.StartLine, b.StartCol, b.EndLine, b.EndCol, b.NumStmt, b.Count)
+			_, err := fmt.Fprintf(out, "%s:%d.%d,%d.%d %d %d\n", p.FileName, b.StartLine, b.StartCol, b.EndLine, b.EndCol, b.NumStmt, b.Count)
+			if err != nil {
+				return err
+			}
 		}
 	}
+
+	return nil
 }
 
 func mergeProfiles(p, merge *cover.Profile) error {

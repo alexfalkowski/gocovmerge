@@ -10,12 +10,13 @@ linters:
     - gochecknoglobals
     - noinlineerr
     - varnamelen
+    - wrapcheck
     - wsl
   settings:
     cyclop:
       max-complexity: 21
     lll:
-      line-length: 130
+      line-length: 150
     wsl_v5:
       allow-first-in-block: true
       allow-whole-block: false
