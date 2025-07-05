@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.3.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.3.0) - 2025-07-05
+
+- [`a5692b7`](https://github.com/alexfalkowski/gocovmerge/commit/a5692b72a2c477d00db76a679f9af7d989c2506c) feat(out): add ability to read a dir with a pattern (#172)
+
 ## [v2.2.1](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.2.1) - 2025-07-05
 
 - [`c61db64`](https://github.com/alexfalkowski/gocovmerge/commit/c61db642f293f2bd8220b7a9b40290fe301f8804) fix(out): change output message (#171)
