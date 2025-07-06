@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alexfalkowski/go:2.34
+      - image: alexfalkowski/go:2.37
     working_directory: ~/gocovmerge
     steps:
       - checkout
