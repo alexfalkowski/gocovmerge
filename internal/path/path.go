@@ -30,11 +30,8 @@ func Files(dir, pattern string) ([]string, error) {
 
 		return nil
 	})
-	if err != nil {
-		return nil, err
-	}
 
-	return files, nil
+	return files, err
 }
 
 func regex(pattern string) (*regexp.Regexp, error) {

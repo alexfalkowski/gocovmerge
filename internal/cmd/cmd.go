@@ -8,7 +8,7 @@ import (
 )
 
 // Run the command.
-func Run(out io.Writer, files []string) error {
+func Run(files []string, out io.Writer) error {
 	var merged []*cover.Profile
 
 	for _, file := range files {

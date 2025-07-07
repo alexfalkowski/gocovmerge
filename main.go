@@ -49,7 +49,7 @@ func main() {
 		files = flag.Args()
 	}
 
-	if err := cmd.Run(output, files); err != nil {
+	if err := cmd.Run(files, output); err != nil {
 		log.Fatal(err)
 	}
 }
