@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.5.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.5.0) - 2025-07-07
+
+- [`8a51067`](https://github.com/alexfalkowski/gocovmerge/commit/8a51067fa89cbaa68645b5390e4136d197eeb6b0) feat(cmd): put io.Writer as last param (#176)
+- [`739f8ef`](https://github.com/alexfalkowski/gocovmerge/commit/739f8efe28a2a78924197678a8ed3befc7ce1b66) build(ci): use alexfalkowski/go:2.37 (#174)
+
 ## [v2.4.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.4.0) - 2025-07-05
 
 - [`f3a62f9`](https://github.com/alexfalkowski/gocovmerge/commit/f3a62f9306d4dc1c70a22acabe91582f8b956f49) feat(path): make pattern optional (#173)
