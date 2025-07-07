@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.9.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.9.0) - 2025-07-07
+
+- [`e025d9a`](https://github.com/alexfalkowski/gocovmerge/commit/e025d9a3360db02a1af94cad34312952c7b47e85) feat(license): move to MIT (#180)
+
 ## [v2.8.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.8.0) - 2025-07-07
 
 - [`12cfa3a`](https://github.com/alexfalkowski/gocovmerge/commit/12cfa3a29232d3b53be6500db1ff7cffa21bde00) feat(main): move to internal (#179)
