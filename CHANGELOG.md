@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.6.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.6.0) - 2025-07-07
+
+- [`56ea030`](https://github.com/alexfalkowski/gocovmerge/commit/56ea030af4d9c6cd06622b2d5e2ee72e1924d136) feat(main): break up func (#177)
+
 ## [v2.5.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.5.0) - 2025-07-07
 
 - [`8a51067`](https://github.com/alexfalkowski/gocovmerge/commit/8a51067fa89cbaa68645b5390e4136d197eeb6b0) feat(cmd): put io.Writer as last param (#176)
