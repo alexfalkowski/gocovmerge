@@ -1,3 +1,4 @@
 gocovmerge
 vendor
 dist
+*.cov
