@@ -3,10 +3,11 @@
 package main
 
 import (
-	"flag"
 	"log"
 
 	"github.com/alexfalkowski/gocovmerge/v2/internal/cmd"
+	"github.com/alexfalkowski/gocovmerge/v2/internal/flag"
+	"github.com/alexfalkowski/gocovmerge/v2/internal/io"
 )
 
 func main() {
@@ -21,12 +22,12 @@ func main() {
 	flag.StringVar(&pattern, "p", "", "pattern to filter directory (if missing all files)")
 	flag.Parse()
 
-	files, err := files(dir, pattern)
+	files, err := flag.Files(dir, pattern)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	output, err := output(out)
+	output, err := io.Output(out)
 	if err != nil {
 		log.Fatal(err)
 	}
