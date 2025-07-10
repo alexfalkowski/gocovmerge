@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alexfalkowski/go:2.37
+      - image: alexfalkowski/go:2.40
     working_directory: ~/gocovmerge
     steps:
       - checkout
@@ -12,33 +12,43 @@ jobs:
       - restore_cache:
           name: restore deps
           keys:
-            - gocovmerge-go-cache-{{ checksum "go.sum" }}
+            - gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
             - gocovmerge-go-cache-
       - run: make clean
       - run: make dep
       - save_cache:
           name: save deps
-          key: gocovmerge-go-cache-{{ checksum "go.sum" }}
+          key: gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
           paths:
-            - /home/circleci/go/pkg/mod
+            - ~/go/pkg/mod
       - restore_cache:
           name: restore go build cache
           keys:
-            - gocovmerge-go-build-cache-{{ checksum "go.sum" }}
+            - gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
             - gocovmerge-go-build-cache-
+      - restore_cache:
+          name: restore go lint cache
+          keys:
+            - gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+            - gocovmerge-go-lint-cache-
       - run: make clean
       - run: make lint
+      - save_cache:
+          name: save go lint cache
+          key: gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+          paths:
+            - ~/.cache/golangci-lint
       - run: make sec
       - run: make build
       - save_cache:
           name: save go build cache
-          key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}
+          key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
           paths:
-            - /home/circleci/.cache/go-build
+            - ~/.cache/go-build
     resource_class: large
   release:
     docker:
-      - image: alexfalkowski/release:3.28
+      - image: alexfalkowski/release:3.30
     working_directory: ~/gocovmerge
     steps:
       - checkout
