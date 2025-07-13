@@ -9,40 +9,41 @@ jobs:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
+      - run: make source-key
       - restore_cache:
           name: restore deps
           keys:
-            - gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+            - gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
             - gocovmerge-go-cache-
       - run: make clean
       - run: make dep
       - save_cache:
           name: save deps
-          key: gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+          key: gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/go/pkg/mod
       - restore_cache:
           name: restore go build cache
           keys:
-            - gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+            - gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
             - gocovmerge-go-build-cache-
       - restore_cache:
           name: restore go lint cache
           keys:
-            - gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}
+            - gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}-{{ checksum ".source-key" }}
             - gocovmerge-go-lint-cache-
       - run: make clean
       - run: make lint
       - save_cache:
           name: save go lint cache
-          key: gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}
+          key: gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/.cache/golangci-lint
       - run: make sec
       - run: make build
       - save_cache:
           name: save go build cache
-          key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
+          key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/.cache/go-build
     resource_class: large
