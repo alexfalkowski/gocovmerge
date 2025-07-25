@@ -49,7 +49,7 @@ jobs:
     resource_class: large
   release:
     docker:
-      - image: alexfalkowski/release:4.3
+      - image: alexfalkowski/release:4.4
     working_directory: ~/gocovmerge
     steps:
       - checkout
