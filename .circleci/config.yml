@@ -49,14 +49,14 @@ jobs:
     resource_class: large
   release:
     docker:
-      - image: alexfalkowski/release:4.4
+      - image: alexfalkowski/release:5.2
     working_directory: ~/gocovmerge
     steps:
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make pull
-      - run: release
+      - run: version
+      - run: package
     resource_class: large
 
 workflows:
