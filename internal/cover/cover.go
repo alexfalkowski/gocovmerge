@@ -18,10 +18,12 @@ var (
 
 	// ErrEmptyProfiles for cover.
 	ErrEmptyProfiles = errors.New("empty profiles")
-
-	// ParseProfiles is an alias of cover.ParseProfiles.
-	ParseProfiles = cover.ParseProfiles
 )
+
+// ParseProfiles is an alias of cover.ParseProfiles.
+func ParseProfiles(fileName string) ([]*cover.Profile, error) {
+	return cover.ParseProfiles(fileName)
+}
 
 // AddProfile for cover.
 func AddProfile(profiles []*cover.Profile, p *cover.Profile) ([]*cover.Profile, error) {

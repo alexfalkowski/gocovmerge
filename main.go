@@ -3,11 +3,10 @@
 package main
 
 import (
-	"log"
-
 	"github.com/alexfalkowski/gocovmerge/v2/internal/cmd"
 	"github.com/alexfalkowski/gocovmerge/v2/internal/flag"
 	"github.com/alexfalkowski/gocovmerge/v2/internal/io"
+	"github.com/alexfalkowski/gocovmerge/v2/internal/log"
 )
 
 func main() {
@@ -16,6 +15,7 @@ func main() {
 		dir     string
 		pattern string
 	)
+	logger := log.NewLogger()
 
 	flag.StringVar(&out, "o", "", "output file (if missing stdout)")
 	flag.StringVar(&dir, "d", "", "directory of files (if missing paths passed in)")
@@ -24,15 +24,15 @@ func main() {
 
 	files, err := flag.Files(dir, pattern)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 
 	output, err := io.Output(out)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 
 	if err := cmd.Run(files, output); err != nil {
-		log.Fatal(err)
+		logger.Fatal(err.Error())
 	}
 }
