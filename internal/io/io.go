@@ -10,6 +10,5 @@ func Output(out string) (io.Writer, error) {
 	if len(out) > 0 {
 		return os.Create(out)
 	}
-
 	return os.Stdout, nil
 }

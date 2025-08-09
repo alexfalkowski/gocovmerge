@@ -14,7 +14,6 @@ func Files(dir, pattern string) ([]string, error) {
 	}
 
 	var files []string
-
 	err = filepath.Walk(dir, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -38,6 +37,5 @@ func regex(pattern string) (*regexp.Regexp, error) {
 	if len(pattern) > 0 {
 		return regexp.Compile(pattern)
 	}
-
 	return nil, nil
 }
