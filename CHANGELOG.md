@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.11.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.11.0) - 2025-08-09
+
+- [`f773774`](https://github.com/alexfalkowski/gocovmerge/commit/f773774d2c9ec95d937d8d2c7abe42ec6392e19f) feat(deps): bump golang.org/x/tools from 0.35.0 to 0.36.0 (#198)
+- [`ee6d6ab`](https://github.com/alexfalkowski/gocovmerge/commit/ee6d6ab49d2495d2eb8dcbc9a5ed4dfeaf413f6f) build(deps): bump bin from `4dda9b0` to `bf35764` (#197)
+- [`117d596`](https://github.com/alexfalkowski/gocovmerge/commit/117d596d3eec9ebf8dfb4613e647c86407a6a4c5) build(deps): bump bin from `22b4d36` to `4dda9b0` (#196)
+- [`6ceffd3`](https://github.com/alexfalkowski/gocovmerge/commit/6ceffd35ec59780c36de2610bbee527566558aad) build(ci): use latest published images (#195)
+- [`db66e65`](https://github.com/alexfalkowski/gocovmerge/commit/db66e653ac4037e5152ed4912c4405eb156736ca) build(deps): bump bin from `fe4b684` to `22b4d36` (#193)
+- [`d503545`](https://github.com/alexfalkowski/gocovmerge/commit/d50354506fa7c7d1368744137d860d076aae41d6) build(ci): use latest published images (#194)
+- [`e225e57`](https://github.com/alexfalkowski/gocovmerge/commit/e225e574f9c644b2e5b46dd02d014cab9dca19da) build(ci): update submodule (#192)
+- [`a190ecd`](https://github.com/alexfalkowski/gocovmerge/commit/a190ecdde90aa1f3bfa66c835c7627328ac8bc21) build(ci): use latest published images (#191)
+- [`563c258`](https://github.com/alexfalkowski/gocovmerge/commit/563c258b12b7558a41fe1f872f9ca62be5be4407) build(deps): bump bin from `911aa21` to `b4da06c` (#190)
+- [`4a06e92`](https://github.com/alexfalkowski/gocovmerge/commit/4a06e92fbc13c57a19d4675253346c7933fe5496) build(ci): use latest published images (#189)
+- [`247b468`](https://github.com/alexfalkowski/gocovmerge/commit/247b468584114b336132e15070f59800846948f1) build(deps): bump bin from `a13f4bb` to `911aa21` (#188)
+- [`d53062a`](https://github.com/alexfalkowski/gocovmerge/commit/d53062a604875cbd61c11caeb2e5d185d78e22eb) build(ci): use alexfalkowski/go:2.43 (#187)
+- [`198b91b`](https://github.com/alexfalkowski/gocovmerge/commit/198b91b0b8034a2663718ffc0878939735b348f6) build(deps): bump bin from `6df8f09` to `a13f4bb` (#186)
+- [`d06ba06`](https://github.com/alexfalkowski/gocovmerge/commit/d06ba062cf34da088f7d8679ab9e6dab3e6aba0a) build(ci): use .source-key (#185)
+- [`f1a875f`](https://github.com/alexfalkowski/gocovmerge/commit/f1a875f6f4e2ac40fc29c1aecca1f20c10810a67) build(ci): use go-lint-version (#184)
+
 ## [v2.10.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.10.0) - 2025-07-12
 
 - [`0a357a6`](https://github.com/alexfalkowski/gocovmerge/commit/0a357a634e57f4146d431373774a6ace3820808f) feat(deps): bump golang.org/x/tools from 0.34.0 to 0.35.0 (#183)
