@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.15.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.15.0) - 2025-09-13
+
+- [`be73a03`](https://github.com/alexfalkowski/gocovmerge/commit/be73a03c783a3f61828de21890681602ed0c7d0e) feat(deps): bump golang.org/x/tools from 0.36.0 to 0.37.0 (#210)
+- [`c7bbd46`](https://github.com/alexfalkowski/gocovmerge/commit/c7bbd46b43f2a094779045eebeaddf5954416b97) build(deps): bump bin from `78fd47f` to `870aeb4` (#209)
+- [`9419964`](https://github.com/alexfalkowski/gocovmerge/commit/941996490bb5319f8f5e456aa88cd77af39c0e93) build(deps): bump bin from `901fb2b` to `78fd47f` (#207)
+- [`1961507`](https://github.com/alexfalkowski/gocovmerge/commit/1961507af772a4bca842d2067601be488550c177) build(deps): bump bin from `bf35764` to `901fb2b` (#206)
+- [`ad596bd`](https://github.com/alexfalkowski/gocovmerge/commit/ad596bd503f067b54b0df0bc89fdabf96dc1f3b2) build(ci): use latest published images (#204)
+
 ## [v2.14.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.14.0) - 2025-08-13
 
 - [`e67e8b6`](https://github.com/alexfalkowski/gocovmerge/commit/e67e8b6b0c4f1bd012622f687380a5fc0a758e6e) feat(flag): move to flag package (#203)
