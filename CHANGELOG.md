@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.17.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.17.0) - 2025-11-15
+
+- [`527c62e`](https://github.com/alexfalkowski/gocovmerge/commit/527c62ee8c4876199eb7a23198da18eef45abf20) feat(deps): bump golang.org/x/tools from 0.38.0 to 0.39.0 (#225)
+- [`cc703e6`](https://github.com/alexfalkowski/gocovmerge/commit/cc703e6ade978a3e6049b017fa21e85003728f7f) build(ci): use latest published images (#226)
+- [`ec18e99`](https://github.com/alexfalkowski/gocovmerge/commit/ec18e99566b8b08d10e63eaa37c4712393093b4c) build(deps): bump bin from `5563606` to `ecccdf6` (#224)
+- [`74ad16c`](https://github.com/alexfalkowski/gocovmerge/commit/74ad16c167eeb6c00addcfb075fb416e6033bce8) build(ci): use latest published images (#223)
+- [`778142e`](https://github.com/alexfalkowski/gocovmerge/commit/778142eb5555e212a2a26ebe0e07f83da0def1f6) build(ci): use latest published images (#222)
+- [`479e2a7`](https://github.com/alexfalkowski/gocovmerge/commit/479e2a76927e2b1d8b70d9b983de84575f44b47b) build(ci): use latest published images (#221)
+- [`adbf94f`](https://github.com/alexfalkowski/gocovmerge/commit/adbf94f26284311e2c72b0dbc97042230ad7c61a) build(deps): bump bin from `09a61a1` to `5563606` (#220)
+- [`f50b0ef`](https://github.com/alexfalkowski/gocovmerge/commit/f50b0ef235a482ea213fdf894a6d24f1a8d57951) build(ci): use latest published images (#219)
+
 ## [v2.16.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.16.0) - 2025-10-10
 
 - [`cbe7e89`](https://github.com/alexfalkowski/gocovmerge/commit/cbe7e89698f5ddf36be032c30b1458fd9c805f5f) feat(deps): bump golang.org/x/tools from 0.37.0 to 0.38.0 (#218)
