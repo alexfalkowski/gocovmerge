@@ -10,6 +10,7 @@ linters:
     - nilnil
     - nlreturn
     - noinlineerr
+    - revive
     - varnamelen
     - wrapcheck
     - wsl
