@@ -47,7 +47,7 @@ jobs:
           key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/.cache/go-build
-    resource_class: large
+    resource_class: arm.large
   release:
     docker:
       - image: alexfalkowski/release:5.46
@@ -59,7 +59,7 @@ jobs:
       - run: git submodule update --init
       - run: version
       - run: package
-    resource_class: large
+    resource_class: arm.large
 
 workflows:
   gocovmerge:
