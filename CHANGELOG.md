@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.21.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.21.0) - 2026-02-12
+
+- [`241ca18`](https://github.com/alexfalkowski/gocovmerge/commit/241ca18cfc9854f1ae3cb9ad140d4f3209959504) feat(go): use go v1.26 (#281)
+- [`142e7b9`](https://github.com/alexfalkowski/gocovmerge/commit/142e7b913f8d20f3e399861d4356c7bf0f8aa141) build(ci): use arm.large (#280)
+- [`27f365e`](https://github.com/alexfalkowski/gocovmerge/commit/27f365e9a87c31e52359283cb84d1190ce314e61) build(ci): use latest published images (#279)
+
 ## [v2.20.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.20.0) - 2026-02-11
 
 - [`977e43e`](https://github.com/alexfalkowski/gocovmerge/commit/977e43eb20e3ce4723d761b3d9c28bb2a85331f1) feat(deps): bump golang.org/x/tools from 0.41.0 to 0.42.0 (#276)
