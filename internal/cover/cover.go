@@ -9,23 +9,31 @@ import (
 	"golang.org/x/tools/cover"
 )
 
-// Profile is an alias for cover.Profile.
+// Profile is a type alias for golang.org/x/tools/cover.Profile.
 type Profile = cover.Profile
 
 var (
-	// ErrInvalidMode for cover.
+	// ErrInvalidMode is returned when attempting to merge profiles that use
+	// different coverage modes (Profile.Mode).
 	ErrInvalidMode = errors.New("invalid profiles merge with different modes")
 
-	// ErrEmptyProfiles for cover.
+	// ErrEmptyProfiles is returned by WriteProfiles when there are no profiles to
+	// write.
 	ErrEmptyProfiles = errors.New("empty profiles")
 )
 
-// ParseProfiles is an alias of cover.ParseProfiles.
+// ParseProfiles parses a coverage profile file produced by `go test -coverprofile`.
 func ParseProfiles(fileName string) ([]*cover.Profile, error) {
 	return cover.ParseProfiles(fileName)
 }
 
-// AddProfile for cover.
+// AddProfile inserts p into profiles, merging it with an existing profile for
+// the same filename if present.
+//
+// profiles is kept sorted by Profile.FileName. If a profile with the same
+// FileName already exists, blocks from p are merged into it. An error is
+// returned if the profiles have different modes or if blocks overlap
+// incompatibly.
 func AddProfile(profiles []*cover.Profile, p *cover.Profile) ([]*cover.Profile, error) {
 	i := sort.Search(len(profiles), func(i int) bool { return profiles[i].FileName >= p.FileName })
 
@@ -42,7 +50,11 @@ func AddProfile(profiles []*cover.Profile, p *cover.Profile) ([]*cover.Profile, 
 	return profiles, nil
 }
 
-// WriteProfiles to out.
+// WriteProfiles writes profiles to out using the standard Go coverage profile
+// format.
+//
+// The output starts with a single `mode: ...` line followed by one line per
+// block. It returns ErrEmptyProfiles when profiles is empty.
 func WriteProfiles(profiles []*cover.Profile, out io.Writer) error {
 	if len(profiles) == 0 {
 		return ErrEmptyProfiles

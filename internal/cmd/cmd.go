@@ -7,7 +7,16 @@ import (
 	"github.com/alexfalkowski/gocovmerge/v2/internal/cover"
 )
 
-// Run the command.
+// Run parses and merges one or more Go coverage profiles and writes the merged
+// profile to out.
+//
+// files should contain paths to files produced by `go test -coverprofile`.
+// Profiles are merged by filename; blocks are combined according to the profile
+// mode (set, count, atomic).
+//
+// It returns an error if any input profile cannot be parsed, if profiles cannot
+// be merged (for example, due to mismatched modes or overlapping blocks), or if
+// the merged output cannot be written.
 func Run(files []string, out io.Writer) error {
 	var merged []*cover.Profile
 

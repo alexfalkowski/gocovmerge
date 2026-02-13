@@ -5,7 +5,10 @@ import (
 	"os"
 )
 
-// Output to a file or stdout.
+// Output returns a writer for out.
+//
+// If out is non-empty, Output creates (or truncates) the file at that path and
+// returns the resulting writer. Otherwise it returns os.Stdout.
 func Output(out string) (io.Writer, error) {
 	if len(out) > 0 {
 		return os.Create(out)
