@@ -6,7 +6,10 @@ import (
 	"regexp"
 )
 
-// Files that match a pattern in dir.
+// Files walks dir recursively and returns file paths that match pattern.
+//
+// If pattern is non-empty it is treated as a regular expression and matched
+// against the walked path. If pattern is empty, all files are returned.
 func Files(dir, pattern string) ([]string, error) {
 	re, err := regex(pattern)
 	if err != nil {
