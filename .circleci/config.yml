@@ -50,7 +50,7 @@ jobs:
     resource_class: arm.large
   release:
     docker:
-      - image: alexfalkowski/release:5.46
+      - image: alexfalkowski/release:5.47
     working_directory: ~/gocovmerge
     steps:
       - checkout:
