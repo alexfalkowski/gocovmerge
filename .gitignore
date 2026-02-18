@@ -2,3 +2,14 @@ gocovmerge
 vendor
 dist
 *.cov
+
+# Bazel output symlinks created in the workspace root
+/bazel-bin
+/bazel-out
+/bazel-testlogs
+/bazel-gocovmerge
+/bazel-workspace
+/bazel-*
+
+# Bazelisk cache (if present)
+/.bazelisk

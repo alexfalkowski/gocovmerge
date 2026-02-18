@@ -1,0 +1,5 @@
+load("@rules_go//go:deps.bzl", "go_rules_dependencies", "go_register_toolchains")
+
+workspace(name = "gocovmerge")
+go_rules_dependencies()
+go_register_toolchains(version = "host")

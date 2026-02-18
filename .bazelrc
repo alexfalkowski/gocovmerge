@@ -1,0 +1,5 @@
+common --color=yes
+common --curses=yes
+common --enable_bzlmod
+common --repository_cache=/tmp/gocovmerge/repository_cache
+build --disk_cache=/tmp/gocovmerge/disk_cache

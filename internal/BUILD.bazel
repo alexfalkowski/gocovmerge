@@ -1,0 +1,7 @@
+package(
+    default_visibility = ["//visibility:private"],
+)
+
+# This file exists primarily to mark `//internal` as a Bazel package so that
+# Starlark loads like `//internal:some_file.bzl` resolve correctly.
+# (Used by the local Gazelle shim under `//third_party/gazelle`.)

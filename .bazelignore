@@ -1,0 +1,2 @@
+# Ignore the git submodule containing shared build tooling.
+bin
