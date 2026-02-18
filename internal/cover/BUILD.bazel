@@ -1,0 +1,9 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cover",
+    srcs = ["cover.go"],
+    importpath = "github.com/alexfalkowski/gocovmerge/v2/internal/cover",
+    visibility = ["//:__subpackages__"],
+    deps = ["//vendor/golang.org/x/tools/cover"],
+)

@@ -1,0 +1,23 @@
+# Gazelle configuration for this repository.
+#
+# Gazelle will use BUILD.bazel as the build file name and this module path as
+# the Go import prefix.
+# NOTE: Bazel/Gazelle also accept these via the gazelle rule args, but having a
+# .gazelle file makes the config apply consistently (including when running
+# Gazelle directly).
+
+build_file_name BUILD.bazel
+go_prefix github.com/alexfalkowski/gocovmerge/v2
+
+# This repo vendors deps for Go tooling, but Bazel resolves deps independently.
+# We keep vendored code out of Gazelle's package generation.
+exclude vendor
+
+# Some repositories include generated outputs; keep common ones out of scanning.
+exclude dist
+
+# `bin/` is a git submodule with build/CI tooling; it is not part of the Go
+# module packages we build with Bazel, and it contains files named `BUILD` that
+# are not Bazel BUILD files. Excluding it prevents Gazelle/Bazel from scanning
+# and treating those as packages.
+exclude bin

@@ -3,50 +3,28 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alexfalkowski/go:2.108
+      - image: alexfalkowski/bazel:1.0
     working_directory: ~/gocovmerge
     steps:
       - checkout:
           method: blobless
       - run: git submodule sync
       - run: git submodule update --init
-      - run: make source-key
+      - run: bazelisk version
       - restore_cache:
-          name: restore deps
           keys:
-            - gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
-            - gocovmerge-go-cache-
-      - run: make clean
-      - run: make dep
+            - bazel-v1-{{ .Branch }}-{{ checksum ".bazelversion" }}-{{ checksum "MODULE.bazel" }}-{{ checksum "MODULE.bazel.lock" }}
+            - bazel-v1-{{ .Branch }}-{{ checksum ".bazelversion" }}
+            - bazel-v1-{{ checksum ".bazelversion" }}
+      - run: bazelisk mod tidy
+      - run: bazelisk run //:gazelle
+      - run: bazelisk build //...
       - save_cache:
-          name: save deps
-          key: gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
+          key: bazel-v1-{{ .Branch }}-{{ checksum ".bazelversion" }}-{{ checksum "MODULE.bazel" }}-{{ checksum "MODULE.bazel.lock" }}
           paths:
-            - ~/go/pkg/mod
-      - restore_cache:
-          name: restore go build cache
-          keys:
-            - gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
-            - gocovmerge-go-build-cache-
-      - restore_cache:
-          name: restore go lint cache
-          keys:
-            - gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}-{{ checksum ".source-key" }}
-            - gocovmerge-go-lint-cache-
-      - run: make clean
-      - run: make lint
-      - save_cache:
-          name: save go lint cache
-          key: gocovmerge-go-lint-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-lint-version" }}-{{ checksum ".source-key" }}
-          paths:
-            - ~/.cache/golangci-lint
-      - run: make sec
-      - run: make build
-      - save_cache:
-          name: save go build cache
-          key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
-          paths:
-            - ~/.cache/go-build
+            - .bazel
+            - ../.bazel_repository_cache
+
     resource_class: arm.large
   release:
     docker:

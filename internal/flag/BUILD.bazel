@@ -1,0 +1,9 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "flag",
+    srcs = ["flag.go"],
+    importpath = "github.com/alexfalkowski/gocovmerge/v2/internal/flag",
+    visibility = ["//:__subpackages__"],
+    deps = ["//internal/path"],
+)

@@ -1,0 +1,12 @@
+# Minimal WORKSPACE file.
+#
+# This repo is intended to be built with Bzlmod via MODULE.bazel.
+# Keeping a WORKSPACE preserves compatibility with tooling and older Bazel
+# invocations that still expect it to exist.
+#
+# If you use Bazelisk, Bazel version is pinned via .bazelversion.
+
+workspace(name = "gocovmerge")
+
+# For Bazel with Bzlmod enabled, external dependencies are resolved via
+# MODULE.bazel; no repository rules are declared here.

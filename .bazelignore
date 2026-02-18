@@ -1,0 +1,2 @@
+# Ignore the git submodule tooling tree; it contains non-Bazel files named BUILD.
+bin

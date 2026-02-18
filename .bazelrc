@@ -1,0 +1,41 @@
+# Bazel configuration for this repo.
+#
+# Goal: make CI caching easy and deterministic by using explicit cache
+# directories.
+#
+# Notes:
+# - `--output_base` is a *startup* option (must be set under `startup`).
+# - Bazel 9 does not allow some caches to live inside the workspace. In
+#   particular, putting `--repository_cache` under the repo can trigger failures.
+#
+# This file is intentionally conservative: it keeps the output base repo-local
+# (so build outputs/action cache are cacheable) and places the repository cache
+# outside the workspace (so Bazel 9 is happy).
+
+# Startup options (apply before command parsing).
+startup --output_base=./.bazel/output_base
+
+# Common settings for all commands.
+common --color=yes
+common --curses=yes
+
+# Store downloaded external archives outside the workspace to avoid Bazel 9
+# "cache inside the main repo" errors.
+#
+# In CI, ensure this path is cached between runs.
+common --repository_cache=../.bazel_repository_cache
+
+# Keep external repository downloads more stable across runs.
+common --experimental_repository_cache_hardlinks
+
+# Where to put convenience symlinks (bazel-bin, bazel-out, etc.).
+# Keeping them under .bazel avoids cluttering the repo root.
+build --symlink_prefix=./.bazel/symlinks/
+
+# Reasonable defaults for CI.
+# (CI can still add -c opt, --jobs, remote caching, etc. as needed.)
+test --test_output=errors
+
+# Bzlmod defaults on Bazel 9, but keeping this explicit is harmless and makes
+# intent clear.
+common --enable_bzlmod

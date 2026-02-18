@@ -2,3 +2,22 @@ gocovmerge
 vendor
 dist
 *.cov
+
+# Bazel outputs (workspace-local)
+bazel-*
+
+# Repo-local Bazel cache/state (configured via .bazelrc)
+.bazel/
+
+# Bazel repository cache is configured outside the workspace (see .bazelrc).
+# Ignore it here as well in case it's adjacent to the repo.
+../.bazel_repository_cache/
+
+# Bazelisk local cache (if created in repo)
+.bazelisk/
+
+# Bazel convenience symlink names (covered by bazel-* above, but kept explicit)
+bazel-bin/
+bazel-out/
+bazel-testlogs/
+bazel-workspace/
