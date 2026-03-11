@@ -48,7 +48,18 @@ jobs:
           paths:
             - ~/.cache/go-build
     resource_class: arm.large
-  release:
+  sync:
+    docker:
+      - image: alexfalkowski/release:5.58
+    working_directory: ~/gocovmerge
+    steps:
+      - checkout:
+          method: blobless
+      - run: git submodule sync
+      - run: git submodule update --init
+      - run: make sync push
+    resource_class: arm.large
+  version:
     docker:
       - image: alexfalkowski/release:5.58
     working_directory: ~/gocovmerge
@@ -60,15 +71,32 @@ jobs:
       - run: version
       - run: package
     resource_class: arm.large
+  wait-all:
+    docker:
+      - image: alexfalkowski/go:2.120
+    steps:
+      - run: echo "all applicable jobs finished"
+    resource_class: arm.large
 
 workflows:
   gocovmerge:
     jobs:
       - build
-      - release:
+      - sync:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: master
+      - version:
           context: gh
           requires:
             - build
           filters:
             branches:
               only: master
+      - wait-all:
+          requires:
+            - build
+            - sync
+            - version
