@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v2.23.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.23.0) - 2026-03-13
+
+- [`e225d5c`](https://github.com/alexfalkowski/gocovmerge/commit/e225d5c1d1eb02cb0b09bbbb3d432b6a8733d452) feat(deps): bump golang.org/x/tools from 0.42.0 to 0.43.0 (#310)
+- [`0c4a98d`](https://github.com/alexfalkowski/gocovmerge/commit/0c4a98dabd68df6579a4f5d9bf8aee558c82f9de) build(deps): upgraded github.com/alexfalkowski/bin (#312)
+- [`634f8ec`](https://github.com/alexfalkowski/gocovmerge/commit/634f8eca60822c2cd65631ef25bc4b591ed02c02) build(deps): bump bin from `616640e` to `a7996aa` (#311)
+- [`fcc77fd`](https://github.com/alexfalkowski/gocovmerge/commit/fcc77fd4f2fe43722ef39ac7b60a70087f8bae78) build(ci): use latest published images (#309)
+- [`7522b70`](https://github.com/alexfalkowski/gocovmerge/commit/7522b70e3f703ee53dda2c21de067b404b40d3f4) build(ci): add wait-all (#308)
+- [`7ec857a`](https://github.com/alexfalkowski/gocovmerge/commit/7ec857a10bc7712633d105419cd40e88cfb29cbb) build(deps): bump bin from `000304e` to `616640e` (#307)
+- [`14d4689`](https://github.com/alexfalkowski/gocovmerge/commit/14d4689b5e09f687d497c50acc888cd8758ea9f8) build(ci): use latest published images (#306)
+- [`b18255d`](https://github.com/alexfalkowski/gocovmerge/commit/b18255d5194d1cf93123ff96ed0bbf316e37d159) build(ci): use latest published images (#305)
+- [`8f74bbd`](https://github.com/alexfalkowski/gocovmerge/commit/8f74bbde4d428672eedc0e656c937becb000a8d8) build(ci): use latest published images (#304)
+- [`e45d5b8`](https://github.com/alexfalkowski/gocovmerge/commit/e45d5b822e30e64e7e08055be2b0898466f0ead1) build(ci): use latest published images (#303)
+- [`8b00231`](https://github.com/alexfalkowski/gocovmerge/commit/8b002313c044982c3764c3308552cf13076eac6f) build(ci): use latest published images (#301)
+- [`b7f65ef`](https://github.com/alexfalkowski/gocovmerge/commit/b7f65ef56c797869c8d784280a56fe635363b4b5) build(ci): use latest published images (#300)
+- [`a658418`](https://github.com/alexfalkowski/gocovmerge/commit/a658418c14af87951a460e05a00ae1a50fa0cc63) build(deps): upgraded github.com/alexfalkowski/bin (#299)
+- [`2ca1a9f`](https://github.com/alexfalkowski/gocovmerge/commit/2ca1a9f0461bf913b0740f7b7ca1209c3b68d8bd) build(ci): use latest published images (#298)
+- [`ec3041c`](https://github.com/alexfalkowski/gocovmerge/commit/ec3041c50a598fdaf49faa36aff5239dbe8af9d4) build(ci): use latest published images (#297)
+- [`c10aa19`](https://github.com/alexfalkowski/gocovmerge/commit/c10aa1978f2d3ff29b6a366781b3c843a312a9d7) build(ci): use latest published images (#296)
+- [`93376de`](https://github.com/alexfalkowski/gocovmerge/commit/93376de47e1e0f1c4f21b84c6ca490a0681f6950) build(ci): use latest published images (#295)
+- [`9c1d0ec`](https://github.com/alexfalkowski/gocovmerge/commit/9c1d0ec5c688a8c59fee734b4bc77850bb82a879) build(ci): use latest published images (#294)
+- [`ba286db`](https://github.com/alexfalkowski/gocovmerge/commit/ba286db262567a0a46bb6fa07263380240b7270e) build(ci): use latest published images (#293)
+- [`e4cf386`](https://github.com/alexfalkowski/gocovmerge/commit/e4cf386c732f3150c6132c287531beb664d72fdf) build(deps): upgraded github.com/alexfalkowski/bin (#292)
+- [`55b2bd0`](https://github.com/alexfalkowski/gocovmerge/commit/55b2bd0871d5536cc40a3a75f3dbaf6e6d0a2a4f) build(deps): upgraded github.com/alexfalkowski/bin (#291)
+- [`832a61f`](https://github.com/alexfalkowski/gocovmerge/commit/832a61f482bd317e5af50ab24ae10d7a5c295a25) build(ci): use latest published images (#290)
+- [`0cec6b4`](https://github.com/alexfalkowski/gocovmerge/commit/0cec6b47b0f6a23d17a1ca9b588aa97f0b4d8658) build(ci): use latest published images (#287)
+- [`48fc58a`](https://github.com/alexfalkowski/gocovmerge/commit/48fc58a65cbd0b3e60910952e270294cb5241a85) build(ci): use latest published images (#286)
+- [`e87e1e8`](https://github.com/alexfalkowski/gocovmerge/commit/e87e1e843d583455e8cd9cf0243427aba25fa769) build(ci): use latest published images (#285)
+- [`a4ea801`](https://github.com/alexfalkowski/gocovmerge/commit/a4ea801722a465d46c4894786241dab625218e8e) build(ci): use latest published images (#284)
+
 ## [v2.22.0](https://github.com/alexfalkowski/gocovmerge/releases/tag/v2.22.0) - 2026-02-13
 
 - [`e71b001`](https://github.com/alexfalkowski/gocovmerge/commit/e71b0017a71ed17cad7b6c0e3a29cb49210937ad) feat(docs): update to reflect important information (#283)
