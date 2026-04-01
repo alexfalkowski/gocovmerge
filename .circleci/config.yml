@@ -48,6 +48,11 @@ jobs:
           key: gocovmerge-go-build-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
           paths:
             - ~/.cache/go-build
+      - run: make coverage
+      - store_test_results:
+          path: test/reports
+      - store_artifacts:
+          path: test/reports
     resource_class: arm.large
   sync:
     docker:
