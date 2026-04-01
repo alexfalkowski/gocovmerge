@@ -53,6 +53,7 @@ jobs:
           path: test/reports
       - store_artifacts:
           path: test/reports
+      - run: make codecov-upload
     resource_class: arm.large
   sync:
     docker:

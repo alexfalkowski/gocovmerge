@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/alexfalkowski/gocovmerge.svg?style=svg)](https://circleci.com/gh/alexfalkowski/gocovmerge)
+[![codecov](https://codecov.io/gh/alexfalkowski/gocovmerge/graph/badge.svg?token=F11S2LYK1F)](https://codecov.io/gh/alexfalkowski/gocovmerge)
 
 # gocovmerge
 
