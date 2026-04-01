@@ -7,9 +7,11 @@ linters:
     - depguard
     - funcorder
     - gochecknoglobals
+    - ireturn
     - nilnil
     - nlreturn
     - noinlineerr
+    - paralleltest
     - revive
     - varnamelen
     - wrapcheck

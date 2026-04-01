@@ -2,3 +2,5 @@ gocovmerge
 vendor
 dist
 *.cov
+*.xml
+*.html

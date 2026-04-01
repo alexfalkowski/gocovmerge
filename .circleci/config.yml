@@ -41,6 +41,7 @@ jobs:
           paths:
             - ~/.cache/golangci-lint
       - run: make sec
+      - run: make specs
       - run: make build
       - save_cache:
           name: save go build cache
