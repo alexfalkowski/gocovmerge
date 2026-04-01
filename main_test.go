@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/alexfalkowski/gocovmerge/v2/internal/test"
+	"github.com/stretchr/testify/require"
 )
 
 var errWriteFailed = errors.New("write failed")
@@ -39,9 +40,7 @@ func TestMainEntrypoint(t *testing.T) {
 	))
 
 	executable, err := os.Executable()
-	if err != nil {
-		t.Fatalf("failed to resolve test binary path: %v", err)
-	}
+	require.NoError(t, err)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
@@ -57,18 +56,12 @@ func TestMainEntrypoint(t *testing.T) {
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 
-	if err := cmd.Run(); err != nil {
-		t.Fatalf("expected main to succeed, got %v with stderr %q", err, stderr.String())
-	}
+	err = cmd.Run()
+	require.NoErrorf(t, err, "expected main to succeed with stderr %q", stderr.String())
 
 	want := test.TextProfile("set", test.TextBlock("foo.go", 1, 1, 1, 2, 1, 1))
-	if stdout.String() != want {
-		t.Fatalf("expected stdout %q, got %q", want, stdout.String())
-	}
-
-	if stderr.Len() != 0 {
-		t.Fatalf("expected stderr to be empty, got %q", stderr.String())
-	}
+	require.Equal(t, want, stdout.String())
+	require.Empty(t, stderr.String())
 }
 
 var runScenarioCases = []test.RunScenario{
@@ -101,9 +94,7 @@ var runScenarioCases = []test.RunScenario{
 		Check: func(t *testing.T, _, _, stderr string) {
 			t.Helper()
 
-			if count := strings.Count(stderr, "flag provided but not defined: -nope"); count != 1 {
-				t.Fatalf("expected one invalid flag diagnostic, got %d in %q", count, stderr)
-			}
+			require.Equal(t, 1, strings.Count(stderr, "flag provided but not defined: -nope"))
 		},
 	},
 	{
@@ -363,18 +354,11 @@ var fileOutputScenarioCases = []test.FileOutputScenario{
 		Check: func(t *testing.T, dir, stdout, _ string) {
 			t.Helper()
 
-			if stdout != "" {
-				t.Fatalf("expected file output to keep stdout empty, got %q", stdout)
-			}
+			require.Empty(t, stdout)
 
 			got, err := os.ReadFile(filepath.Join(dir, "merged.out"))
-			if err != nil {
-				t.Fatalf("failed to read output file: %v", err)
-			}
-
-			if string(got) != "previous data\n" {
-				t.Fatalf("expected output file to be preserved, got %q", string(got))
-			}
+			require.NoError(t, err)
+			require.Equal(t, "previous data\n", string(got))
 		},
 	},
 	{
@@ -393,19 +377,13 @@ var fileOutputScenarioCases = []test.FileOutputScenario{
 		Check: func(t *testing.T, dir, stdout, _ string) {
 			t.Helper()
 
-			if stdout != "" {
-				t.Fatalf("expected file output to keep stdout empty, got %q", stdout)
-			}
+			require.Empty(t, stdout)
 
 			got, err := os.ReadFile(filepath.Join(dir, "cover.out"))
-			if err != nil {
-				t.Fatalf("failed to read merged profile: %v", err)
-			}
+			require.NoError(t, err)
 
 			want := test.TextProfile("set", test.TextBlock("foo.go", 1, 1, 1, 2, 1, 1))
-			if string(got) != want {
-				t.Fatalf("expected merged profile %q, got %q", want, string(got))
-			}
+			require.Equal(t, want, string(got))
 		},
 	},
 	{
@@ -427,19 +405,13 @@ var fileOutputScenarioCases = []test.FileOutputScenario{
 		Check: func(t *testing.T, dir, stdout, _ string) {
 			t.Helper()
 
-			if stdout != "" {
-				t.Fatalf("expected file output to keep stdout empty, got %q", stdout)
-			}
+			require.Empty(t, stdout)
 
 			got, err := os.ReadFile(filepath.Join(dir, "merged.out"))
-			if err != nil {
-				t.Fatalf("failed to read output file: %v", err)
-			}
+			require.NoError(t, err)
 
 			want := test.TextProfile("count", test.TextBlock("foo.go", 1, 1, 1, 2, 1, 3))
-			if string(got) != want {
-				t.Fatalf("expected merged output %q, got %q", want, string(got))
-			}
+			require.Equal(t, want, string(got))
 		},
 	},
 	{
@@ -461,13 +433,10 @@ var fileOutputScenarioCases = []test.FileOutputScenario{
 		Check: func(t *testing.T, dir, stdout, _ string) {
 			t.Helper()
 
-			if stdout != "" {
-				t.Fatalf("expected file output to keep stdout empty, got %q", stdout)
-			}
+			require.Empty(t, stdout)
 
-			if _, err := os.Stat(filepath.Join(dir, "missing", "merged.out")); !errors.Is(err, os.ErrNotExist) {
-				t.Fatalf("expected output file to be absent after close failure, got %v", err)
-			}
+			_, err := os.Stat(filepath.Join(dir, "missing", "merged.out"))
+			require.ErrorIs(t, err, os.ErrNotExist)
 		},
 	},
 }
@@ -481,26 +450,14 @@ func TestRunDirectoryInputExcludesExistingOutputFile(t *testing.T) {
 
 	for i := range 2 {
 		exitCode, stdout, stderr := test.ExecuteRun(t, run, []string{"-d", dir, "-o", output}, nil)
-		if exitCode != 0 {
-			t.Fatalf("run %d expected success, got %d with stderr %q", i+1, exitCode, stderr)
-		}
-
-		if stdout != "" {
-			t.Fatalf("run %d expected file output to keep stdout empty, got %q", i+1, stdout)
-		}
+		require.Equalf(t, 0, exitCode, "run %d stderr: %q", i+1, stderr)
+		require.Emptyf(t, stdout, "run %d expected file output to keep stdout empty", i+1)
 	}
 
 	got, err := os.ReadFile(output)
-	if err != nil {
-		t.Fatalf("failed to read merged output: %v", err)
-	}
+	require.NoError(t, err)
 
 	want, err := os.ReadFile(input)
-	if err != nil {
-		t.Fatalf("failed to read input profile: %v", err)
-	}
-
-	if string(got) != string(want) {
-		t.Fatalf("expected output file to be excluded from later runs, got %q", string(got))
-	}
+	require.NoError(t, err)
+	require.Equal(t, string(want), string(got))
 }
