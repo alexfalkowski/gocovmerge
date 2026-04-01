@@ -15,15 +15,13 @@ type Profile = cover.Profile
 // ProfileBlock is a type alias for golang.org/x/tools/cover.ProfileBlock.
 type ProfileBlock = cover.ProfileBlock
 
-var (
-	// ErrInvalidMode is returned when attempting to merge profiles that use
-	// different coverage modes (Profile.Mode).
-	ErrInvalidMode = errors.New("invalid profiles merge with different modes")
+// ErrInvalidMode is returned when attempting to merge profiles that use
+// different coverage modes (Profile.Mode).
+var ErrInvalidMode = errors.New("invalid profiles merge with different modes")
 
-	// ErrEmptyProfiles is returned by WriteProfiles when there are no profiles to
-	// write.
-	ErrEmptyProfiles = errors.New("empty profiles")
-)
+// ErrEmptyProfiles is returned by WriteProfiles when there are no profiles to
+// write.
+var ErrEmptyProfiles = errors.New("empty profiles")
 
 // ParseProfiles parses a coverage profile file produced by `go test -coverprofile`.
 func ParseProfiles(fileName string) ([]*Profile, error) {

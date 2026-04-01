@@ -25,7 +25,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 			return 0
 		}
 
-		logger.Error(err.Error())
 		return 1
 	}
 
