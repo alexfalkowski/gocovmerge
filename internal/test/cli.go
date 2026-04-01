@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -64,12 +66,10 @@ func RunScenarioCase(t *testing.T, run RunFunc, tt RunScenario) {
 	}
 
 	exitCode, stdout, stderr := ExecuteRun(t, run, args, tt.Stdout)
-	if exitCode != tt.WantExit {
-		t.Fatalf("expected exit code %d, got %d with stderr %q", tt.WantExit, exitCode, stderr)
-	}
+	require.Equalf(t, tt.WantExit, exitCode, "stderr: %q", stderr)
 
-	if !tt.SkipStdoutCheck && stdout != tt.WantStdout {
-		t.Fatalf("expected stdout %q, got %q", tt.WantStdout, stdout)
+	if !tt.SkipStdoutCheck {
+		require.Equal(t, tt.WantStdout, stdout)
 	}
 
 	assertStderr(t, stderr, tt.WantStderrEmpty, tt.WantStderrContains, tt.WantStderrExcludes)
@@ -86,9 +86,7 @@ func RunFileOutputScenarioCase(t *testing.T, run RunFunc, tt FileOutputScenario)
 
 	dir := t.TempDir()
 	exitCode, stdout, stderr := ExecuteRun(t, run, tt.Setup(t, dir), nil)
-	if exitCode != tt.WantExit {
-		t.Fatalf("expected exit code %d, got %d with stderr %q", tt.WantExit, exitCode, stderr)
-	}
+	require.Equalf(t, tt.WantExit, exitCode, "stderr: %q", stderr)
 
 	assertStderr(t, stderr, tt.WantStderrEmpty, tt.WantStderrContains, nil)
 
@@ -126,13 +124,11 @@ func WriteProfileFile(t *testing.T, dir, name, body string) string {
 func WriteTextFile(t *testing.T, path, body string) {
 	t.Helper()
 
-	if err := os.MkdirAll(filepath.Dir(path), dirPerm); err != nil {
-		t.Fatalf("failed to create parent directory: %v", err)
-	}
+	err := os.MkdirAll(filepath.Dir(path), dirPerm)
+	require.NoErrorf(t, err, "failed to create parent directory for %q", path)
 
-	if err := os.WriteFile(path, []byte(body), filePerm); err != nil {
-		t.Fatalf("failed to write file %q: %v", path, err)
-	}
+	err = os.WriteFile(path, []byte(body), filePerm)
+	require.NoErrorf(t, err, "failed to write file %q", path)
 }
 
 // TextProfile formats a coverage profile file body with the given mode and
@@ -149,19 +145,15 @@ func TextBlock(file string, startLine, startCol, endLine, endCol, numStmt, count
 func assertStderr(t *testing.T, stderr string, wantEmpty bool, contains, excludes []string) {
 	t.Helper()
 
-	if wantEmpty && stderr != "" {
-		t.Fatalf("expected stderr to be empty, got %q", stderr)
+	if wantEmpty {
+		require.Empty(t, stderr)
 	}
 
 	for _, want := range contains {
-		if !strings.Contains(stderr, want) {
-			t.Fatalf("expected stderr to contain %q, got %q", want, stderr)
-		}
+		require.Contains(t, stderr, want)
 	}
 
 	for _, unwanted := range excludes {
-		if strings.Contains(stderr, unwanted) {
-			t.Fatalf("expected stderr not to contain %q, got %q", unwanted, stderr)
-		}
+		require.NotContains(t, stderr, unwanted)
 	}
 }
