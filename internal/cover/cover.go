@@ -128,39 +128,60 @@ func mergeProfileBlock(p *Profile, pb ProfileBlock, startIndex int) (int, error)
 
 	i += startIndex
 
-	//nolint:nestif
 	if i < len(p.Blocks) && p.Blocks[i].StartLine == pb.StartLine && p.Blocks[i].StartCol == pb.StartCol {
-		if p.Blocks[i].EndLine != pb.EndLine || p.Blocks[i].EndCol != pb.EndCol {
-			return 0, fmt.Errorf("overlap merge: %v %v %v", p.FileName, p.Blocks[i], pb)
+		if err := mergeSameBlock(p, i, pb); err != nil {
+			return 0, err
 		}
 
-		switch p.Mode {
-		case "set":
-			p.Blocks[i].Count |= pb.Count
-		case "count", "atomic":
-			p.Blocks[i].Count += pb.Count
-		default:
-			return 0, fmt.Errorf("unsupported covermode: '%s'", p.Mode)
-		}
-	} else {
-		if i > 0 {
-			pa := p.Blocks[i-1]
-			if pa.EndLine > pb.StartLine || (pa.EndLine == pb.StartLine && pa.EndCol > pb.StartCol) {
-				return 0, fmt.Errorf("overlap before: %v %v %v", p.FileName, pa, pb)
-			}
-		}
+		return i + 1, nil
+	}
 
-		if i < len(p.Blocks) {
-			pa := p.Blocks[i]
-			if pa.StartLine < pb.EndLine || (pa.StartLine == pb.EndLine && pa.StartCol < pb.EndCol) {
-				return 0, fmt.Errorf("overlap after: %v %v %v", p.FileName, pa, pb)
-			}
-		}
-
-		p.Blocks = append(p.Blocks, cover.ProfileBlock{})
-		copy(p.Blocks[i+1:], p.Blocks[i:])
-		p.Blocks[i] = pb
+	if err := insertBlock(p, i, pb); err != nil {
+		return 0, err
 	}
 
 	return i + 1, nil
+}
+
+func mergeSameBlock(p *Profile, index int, block ProfileBlock) error {
+	if p.Blocks[index].EndLine != block.EndLine || p.Blocks[index].EndCol != block.EndCol {
+		return fmt.Errorf("overlap merge: %v %v %v", p.FileName, p.Blocks[index], block)
+	}
+
+	if p.Blocks[index].NumStmt != block.NumStmt {
+		return fmt.Errorf("inconsistent NumStmt: changed from %d to %d", p.Blocks[index].NumStmt, block.NumStmt)
+	}
+
+	switch p.Mode {
+	case "set":
+		p.Blocks[index].Count |= block.Count
+	case "count", "atomic":
+		p.Blocks[index].Count += block.Count
+	default:
+		return fmt.Errorf("unsupported covermode: '%s'", p.Mode)
+	}
+
+	return nil
+}
+
+func insertBlock(p *Profile, index int, block ProfileBlock) error {
+	if index > 0 {
+		previous := p.Blocks[index-1]
+		if previous.EndLine > block.StartLine || (previous.EndLine == block.StartLine && previous.EndCol > block.StartCol) {
+			return fmt.Errorf("overlap before: %v %v %v", p.FileName, previous, block)
+		}
+	}
+
+	if index < len(p.Blocks) {
+		next := p.Blocks[index]
+		if next.StartLine < block.EndLine || (next.StartLine == block.EndLine && next.StartCol < block.EndCol) {
+			return fmt.Errorf("overlap after: %v %v %v", p.FileName, next, block)
+		}
+	}
+
+	p.Blocks = append(p.Blocks, cover.ProfileBlock{})
+	copy(p.Blocks[index+1:], p.Blocks[index:])
+	p.Blocks[index] = block
+
+	return nil
 }
