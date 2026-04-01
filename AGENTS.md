@@ -33,6 +33,7 @@ Tests currently live in:
 
 - `main_test.go`
 - `internal/cover/cover_test.go`
+- `internal/test`: shared test helpers and scenario scaffolding used by the test suites above.
 
 ## CI
 
