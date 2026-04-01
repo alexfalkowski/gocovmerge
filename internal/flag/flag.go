@@ -65,6 +65,5 @@ func (v *Values) Files() ([]string, error) {
 	if len(v.dir) > 0 {
 		return path.Files(v.dir, v.pattern, v.out)
 	}
-
 	return v.args, nil
 }
