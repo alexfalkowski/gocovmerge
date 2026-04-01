@@ -35,13 +35,14 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return 1
 	}
 
-	out, err := io.Output(v.Out(), stdout)
-	if err != nil {
+	out := io.Output(v.Out(), stdout)
+
+	if err := cmd.Run(files, out); err != nil {
 		logger.Error(err.Error())
 		return 1
 	}
 
-	if err := cmd.Run(files, out); err != nil {
+	if err := out.Close(); err != nil {
 		logger.Error(err.Error())
 		return 1
 	}
