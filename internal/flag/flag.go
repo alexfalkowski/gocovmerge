@@ -55,11 +55,13 @@ func (v *Values) Out() string {
 // Files returns the coverage profile file paths to merge.
 //
 // If `-d` was provided, it walks that directory recursively and returns all
-// matching files; if `-p` is non-empty it is treated as a regexp filter.
-// Otherwise, it returns the remaining positional arguments.
+// matching files; if `-p` is non-empty it is treated as a regexp filter. When
+// `-o` points inside that directory, the output path is excluded from the
+// returned inputs. Otherwise, it returns the remaining positional arguments.
 func (v *Values) Files() ([]string, error) {
 	if len(v.dir) > 0 {
-		return path.Files(v.dir, v.pattern)
+		return path.Files(v.dir, v.pattern, v.out)
 	}
+
 	return v.args, nil
 }

@@ -146,3 +146,37 @@ func TestRunCanUseInputFileAsOutput(t *testing.T) {
 		t.Fatalf("expected successful run to keep stderr empty, got %q", stderr.String())
 	}
 }
+
+func TestRunDirectoryInputExcludesExistingOutputFile(t *testing.T) {
+	dir := t.TempDir()
+	input := filepath.Join(dir, "a.out")
+	output := filepath.Join(dir, "merged.out")
+	const profile = "mode: count\nfoo.go:1.1,1.2 1 1\n"
+
+	if err := os.WriteFile(input, []byte(profile), 0o600); err != nil {
+		t.Fatalf("failed to seed input profile: %v", err)
+	}
+
+	for i := range 2 {
+		var stdout bytes.Buffer
+		var stderr bytes.Buffer
+
+		exitCode := run([]string{"-d", dir, "-o", output}, &stdout, &stderr)
+		if exitCode != 0 {
+			t.Fatalf("run %d expected success, got %d with stderr %q", i+1, exitCode, stderr.String())
+		}
+
+		if stdout.Len() != 0 {
+			t.Fatalf("run %d expected file output to keep stdout empty, got %q", i+1, stdout.String())
+		}
+	}
+
+	got, err := os.ReadFile(output)
+	if err != nil {
+		t.Fatalf("failed to read merged output: %v", err)
+	}
+
+	if string(got) != profile {
+		t.Fatalf("expected output file to be excluded from later runs, got %q", string(got))
+	}
+}
