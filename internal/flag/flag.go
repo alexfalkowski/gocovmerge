@@ -18,8 +18,9 @@ var ErrHelp = flag.ErrHelp
 //   - `-d`: directory containing coverage profiles (if empty, positional args are used)
 //   - `-p`: regexp pattern to filter files when `-d` is set (if empty, all files are included)
 //
-// Any remaining positional arguments after flags are treated as coverage profile
-// paths. Flag usage and parse errors are written to output when it is non-nil.
+// Any remaining positional arguments after flags are treated as coverage
+// profile paths. Flag usage and parse errors are written to output when it is
+// non-nil.
 func Parse(args []string, output io.Writer) (*Values, error) {
 	set := flag.NewFlagSet("gocovmerge", flag.ContinueOnError)
 	if output != nil {
@@ -37,7 +38,7 @@ func Parse(args []string, output io.Writer) (*Values, error) {
 	return &Values{out: *out, dir: *dir, pattern: *pattern, args: set.Args()}, nil
 }
 
-// Values holds the parsed command-line configuration.
+// Values holds the parsed command-line configuration returned by Parse.
 type Values struct {
 	out     string
 	dir     string
@@ -47,7 +48,7 @@ type Values struct {
 
 // Out returns the output file path provided via `-o`.
 //
-// If empty, the caller should write to stdout.
+// If empty, the caller should write the merged profile to stdout.
 func (v *Values) Out() string {
 	return v.out
 }
@@ -57,7 +58,9 @@ func (v *Values) Out() string {
 // If `-d` was provided, it walks that directory recursively and returns all
 // matching files; if `-p` is non-empty it is treated as a regexp filter. When
 // `-o` points inside that directory, the output path is excluded from the
-// returned inputs. Otherwise, it returns the remaining positional arguments.
+// returned inputs so rerunning the same command does not merge the previous
+// output back into the inputs. Otherwise, Files returns the remaining
+// positional arguments unchanged.
 func (v *Values) Files() ([]string, error) {
 	if len(v.dir) > 0 {
 		return path.Files(v.dir, v.pattern, v.out)

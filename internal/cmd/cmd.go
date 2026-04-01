@@ -15,8 +15,8 @@ import (
 // mode (set, count, atomic).
 //
 // It returns an error if any input profile cannot be parsed, if profiles cannot
-// be merged (for example, due to mismatched modes or overlapping blocks), or if
-// the merged output cannot be written.
+// be merged (for example, due to mismatched modes, incompatible blocks, or
+// inconsistent statement counts), or if the merged output cannot be written.
 func Run(files []string, out io.Writer) error {
 	var merged []*cover.Profile
 
