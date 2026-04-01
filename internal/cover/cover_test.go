@@ -76,17 +76,32 @@ func TestAddProfileRejectsOverlapAfter(t *testing.T) {
 	}
 }
 
+func TestAddProfileRejectsDifferentNumStmtForSameBlock(t *testing.T) {
+	profiles := []*cover.Profile{
+		profile("a.go", "count", block(1, 1, 1, 2, 1)),
+	}
+
+	_, err := cover.AddProfile(profiles, profile("a.go", "count", blockWithNumStmt(1, 1, 1, 2, 2, 1)))
+	if err == nil || !strings.Contains(err.Error(), "inconsistent NumStmt") {
+		t.Fatalf("expected inconsistent NumStmt error, got %v", err)
+	}
+}
+
 func profile(fileName, mode string, blocks ...cover.ProfileBlock) *cover.Profile {
 	return &cover.Profile{FileName: fileName, Mode: mode, Blocks: blocks}
 }
 
 func block(startLine, startCol, endLine, endCol, count int) cover.ProfileBlock {
+	return blockWithNumStmt(startLine, startCol, endLine, endCol, 1, count)
+}
+
+func blockWithNumStmt(startLine, startCol, endLine, endCol, numStmt, count int) cover.ProfileBlock {
 	return cover.ProfileBlock{
 		StartLine: startLine,
 		StartCol:  startCol,
 		EndLine:   endLine,
 		EndCol:    endCol,
-		NumStmt:   1,
+		NumStmt:   numStmt,
 		Count:     count,
 	}
 }
