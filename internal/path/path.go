@@ -35,7 +35,7 @@ func Files(dir, pattern, exclude string) ([]string, error) {
 		}
 
 		if excluded != "" {
-			normalized, err := filepath.Abs(path)
+			normalized, err := abs(path)
 			if err != nil {
 				return err
 			}
@@ -59,7 +59,6 @@ func abs(path string) (string, error) {
 	if len(path) == 0 {
 		return "", nil
 	}
-
 	return filepath.Abs(path)
 }
 
