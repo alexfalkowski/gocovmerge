@@ -2,22 +2,30 @@ package flag
 
 import (
 	"flag"
-	"os"
+	"io"
 
 	"github.com/alexfalkowski/gocovmerge/v2/internal/path"
 )
 
-// Parse parses command-line flags and returns the resulting Values.
+// ErrHelp indicates that help was requested and usage was written to the flag
+// output.
+var ErrHelp = flag.ErrHelp
+
+// Parse parses args and returns the resulting Values.
 //
 // Supported flags:
 //   - `-o`: output file path (if empty, stdout is used)
 //   - `-d`: directory containing coverage profiles (if empty, positional args are used)
 //   - `-p`: regexp pattern to filter files when `-d` is set (if empty, all files are included)
 //
-// Any remaining positional arguments after flags are treated as coverage profile paths.
-func Parse() (*Values, error) {
-	args := os.Args[1:]
+// Any remaining positional arguments after flags are treated as coverage profile
+// paths. Flag usage and parse errors are written to output when it is non-nil.
+func Parse(args []string, output io.Writer) (*Values, error) {
 	set := flag.NewFlagSet("gocovmerge", flag.ContinueOnError)
+	if output != nil {
+		set.SetOutput(output)
+	}
+
 	out := set.String("o", "", "output file (if missing stdout)")
 	dir := set.String("d", "", "directory of files (if missing paths passed in)")
 	pattern := set.String("p", "", "pattern to filter directory (if missing all files)")
