@@ -56,6 +56,33 @@ func TestRunParseErrorWritesOnlyToStderr(t *testing.T) {
 	}
 }
 
+func TestRunInvalidFlagDoesNotLogTwice(t *testing.T) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	exitCode := run([]string{"-nope"}, &stdout, &stderr)
+	if exitCode != 1 {
+		t.Fatalf("expected invalid flag to exit 1, got %d", exitCode)
+	}
+
+	if stdout.Len() != 0 {
+		t.Fatalf("expected invalid flag to keep stdout empty, got %q", stdout.String())
+	}
+
+	got := stderr.String()
+	if !strings.Contains(got, "Usage of gocovmerge:") {
+		t.Fatalf("expected usage text on stderr, got %q", got)
+	}
+
+	if count := strings.Count(got, "flag provided but not defined: -nope"); count != 1 {
+		t.Fatalf("expected single invalid flag diagnostic, got %d in %q", count, got)
+	}
+
+	if strings.Contains(got, "level=ERROR") {
+		t.Fatalf("expected invalid flag not to be logged, got %q", got)
+	}
+}
+
 func TestRunParseErrorDoesNotTruncateOutputFile(t *testing.T) {
 	dir := t.TempDir()
 	out := filepath.Join(dir, "merged.out")
