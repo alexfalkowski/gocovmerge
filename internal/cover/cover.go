@@ -10,13 +10,19 @@ import (
 )
 
 // Profile is a type alias for golang.org/x/tools/cover.Profile.
+//
+// It is re-exported so callers can stay within this package when constructing
+// or inspecting merged profile data.
 type Profile = cover.Profile
 
 // ProfileBlock is a type alias for golang.org/x/tools/cover.ProfileBlock.
+//
+// It is re-exported alongside Profile so callers do not need to import
+// golang.org/x/tools/cover directly.
 type ProfileBlock = cover.ProfileBlock
 
-// ErrInvalidMode is returned when attempting to merge profiles that use
-// different coverage modes (Profile.Mode).
+// ErrInvalidMode is returned when a merge or write operation encounters
+// profiles that do not all share the same coverage mode.
 var ErrInvalidMode = errors.New("invalid profiles merge with different modes")
 
 // ErrEmptyProfiles is returned by WriteProfiles when there are no profiles to
@@ -24,6 +30,9 @@ var ErrInvalidMode = errors.New("invalid profiles merge with different modes")
 var ErrEmptyProfiles = errors.New("empty profiles")
 
 // ParseProfiles parses a coverage profile file produced by `go test -coverprofile`.
+//
+// The returned profiles are sorted by filename, and each profile's blocks are
+// sorted by start position using golang.org/x/tools/cover's parser semantics.
 func ParseProfiles(fileName string) ([]*Profile, error) {
 	return cover.ParseProfiles(fileName)
 }
@@ -32,9 +41,10 @@ func ParseProfiles(fileName string) ([]*Profile, error) {
 // the same filename if present.
 //
 // profiles is kept sorted by Profile.FileName. If a profile with the same
-// FileName already exists, blocks from p are merged into it. An error is
-// returned if the profiles have different modes or if blocks overlap
-// incompatibly.
+// FileName already exists, blocks from p are merged into it. All profiles in
+// the slice must use the same coverage mode. Blocks with the same coordinates
+// must also agree on NumStmt; otherwise AddProfile returns an error. Overlapping
+// or otherwise incompatible blocks are rejected.
 func AddProfile(profiles []*Profile, p *Profile) ([]*Profile, error) {
 	if len(profiles) > 0 && profiles[0].Mode != p.Mode {
 		return nil, ErrInvalidMode
@@ -59,7 +69,8 @@ func AddProfile(profiles []*Profile, p *Profile) ([]*Profile, error) {
 // format.
 //
 // The output starts with a single `mode: ...` line followed by one line per
-// block. It returns ErrEmptyProfiles when profiles is empty.
+// block. Before writing, it validates that every profile uses the same mode. It
+// returns ErrEmptyProfiles when profiles is empty.
 func WriteProfiles(profiles []*Profile, out io.Writer) error {
 	if len(profiles) == 0 {
 		return ErrEmptyProfiles

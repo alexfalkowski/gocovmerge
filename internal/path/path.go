@@ -10,7 +10,9 @@ import (
 //
 // If pattern is non-empty it is treated as a regular expression and matched
 // against the walked path. If pattern is empty, all files are returned. If
-// exclude is non-empty, that path is skipped from the returned results.
+// exclude is non-empty, that path is skipped from the returned results. The
+// exclusion check compares absolute paths so relative `-o` values are handled
+// consistently.
 func Files(dir, pattern, exclude string) ([]string, error) {
 	re, err := regex(pattern)
 	if err != nil {

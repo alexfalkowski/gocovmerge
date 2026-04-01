@@ -43,12 +43,16 @@ Usage of gocovmerge:
         pattern to filter directory (if missing all files)
 ```
 
+`-help` prints usage and exits with status `0`. Parse errors and runtime errors
+are written to stderr so stdout can remain a clean coverage-profile stream.
+
 ### Inputs: `-d` vs positional args
 
 `gocovmerge` chooses input files like this:
 
 - If `-d` is provided (non-empty), it **recursively walks** that directory and merges **all files** it finds.
   - If `-p` is also provided, it is treated as a **regular expression** and matched against the walked file path. Only matching files are included.
+  - If `-o` points at a file inside that directory, the output path is **excluded** from the discovered inputs. This prevents rerunning the same command from merging the previous output back into the new result.
 - If `-d` is **not** provided, it merges the remaining **positional arguments** as explicit coverage profile paths.
 
 Examples:
@@ -75,7 +79,9 @@ gocovmerge -d ./coverage -p '.*\.cov$' > cover.out
 ### Output: `-o` vs stdout
 
 - If `-o` is provided, output is written to that file.
+- If `-o` is provided, the merged profile is buffered first and the destination file is only created/truncated after a successful merge.
 - If `-o` is not provided, output is written to stdout.
+- With explicit positional arguments, `-o` may point at one of the input files because the input is read before the final output file is written.
 
 Examples:
 
@@ -85,10 +91,11 @@ Write to a file:
 gocovmerge -o cover.out ./pkg1/cover.out ./pkg2/cover.out
 ```
 
-Pipe to another command:
+Use stdout with shell redirection:
 
 ```bash
-gocovmerge -d ./coverage | go tool cover -func=-
+gocovmerge -d ./coverage > cover.out
+go tool cover -func=cover.out
 ```
 
 ## End-to-end examples
@@ -129,7 +136,8 @@ If profiles refer to different versions of the same file, block boundaries may d
 
 ### Coverage modes must match
 
-Profiles must use the same coverage mode (`set`, `count`, or `atomic`).
+Profiles must use the same coverage mode (`set`, `count`, or `atomic`) across
+all inputs.
 
 If you mix modes (for example, one profile generated with `-covermode=set` and another with `-covermode=atomic`), merging fails.
 
@@ -141,11 +149,17 @@ go test ./... -covermode=atomic -coverprofile=...
 
 ### Overlapping/incompatible blocks
 
-If two profiles contain blocks for the same file that overlap in an incompatible way (different end positions for the same start, or blocks that nest/overlap unexpectedly), `gocovmerge` exits non-zero with an error.
+If two profiles contain blocks for the same file that overlap in an
+incompatible way, `gocovmerge` exits non-zero with an error. Examples include:
+
+- different end positions for the same start position
+- the same block coordinates with different `NumStmt` values
+- blocks that partially overlap or nest unexpectedly
 
 ### Empty input
 
-If you pass no files (or your `-d`/`-p` combination matches nothing), there are no profiles to write and the command fails.
+If you pass no files (or your `-d`/`-p` combination matches nothing after
+excluding `-o`), there are no profiles to write and the command fails.
 
 ## Notes
 
@@ -153,3 +167,4 @@ If you pass no files (or your `-d`/`-p` combination matches nothing), there are 
 - Merging is performed per `Profile.FileName`; within a file:
   - `set` mode merges counts using bitwise OR.
   - `count` and `atomic` modes merge counts by summing.
+  - same-position blocks must also agree on `NumStmt`.

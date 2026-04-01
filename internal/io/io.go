@@ -7,9 +7,16 @@ import (
 )
 
 // Writer is the output sink used by the CLI.
+//
+// It aliases io.Writer so callers can depend on this package without importing
+// the standard library's io package directly.
 type Writer = io.Writer
 
 // OutputWriter accepts merged profile output and finalizes it when closed.
+//
+// File-backed implementations buffer writes in memory and only create or
+// truncate the destination when Close succeeds. The stdout-backed
+// implementation's Close method is a no-op.
 type OutputWriter interface {
 	Writer
 	Close() error
@@ -19,7 +26,7 @@ type OutputWriter interface {
 //
 // If out is non-empty, Output buffers the merged profile and only creates (or
 // truncates) the file when Close is called. Otherwise it writes directly to
-// stdout.
+// stdout and Close becomes a no-op.
 func Output(out string, stdout Writer) OutputWriter {
 	if len(out) > 0 {
 		return &fileOutput{path: out}

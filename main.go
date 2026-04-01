@@ -1,5 +1,3 @@
-// gocovmerge takes the results from multiple `go test -coverprofile` runs and
-// merges them into one profile
 package main
 
 import (
