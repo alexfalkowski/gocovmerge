@@ -36,8 +36,8 @@ func (o *stdoutOutput) Close() error {
 }
 
 type fileOutput struct {
-	buffer bytes.Buffer
 	path   string
+	buffer bytes.Buffer
 }
 
 func (o *fileOutput) Write(p []byte) (int, error) {

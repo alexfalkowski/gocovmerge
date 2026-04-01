@@ -12,6 +12,9 @@ import (
 // Profile is a type alias for golang.org/x/tools/cover.Profile.
 type Profile = cover.Profile
 
+// ProfileBlock is a type alias for golang.org/x/tools/cover.ProfileBlock.
+type ProfileBlock = cover.ProfileBlock
+
 var (
 	// ErrInvalidMode is returned when attempting to merge profiles that use
 	// different coverage modes (Profile.Mode).
@@ -23,7 +26,7 @@ var (
 )
 
 // ParseProfiles parses a coverage profile file produced by `go test -coverprofile`.
-func ParseProfiles(fileName string) ([]*cover.Profile, error) {
+func ParseProfiles(fileName string) ([]*Profile, error) {
 	return cover.ParseProfiles(fileName)
 }
 
@@ -34,7 +37,11 @@ func ParseProfiles(fileName string) ([]*cover.Profile, error) {
 // FileName already exists, blocks from p are merged into it. An error is
 // returned if the profiles have different modes or if blocks overlap
 // incompatibly.
-func AddProfile(profiles []*cover.Profile, p *cover.Profile) ([]*cover.Profile, error) {
+func AddProfile(profiles []*Profile, p *Profile) ([]*Profile, error) {
+	if len(profiles) > 0 && profiles[0].Mode != p.Mode {
+		return nil, ErrInvalidMode
+	}
+
 	i := sort.Search(len(profiles), func(i int) bool { return profiles[i].FileName >= p.FileName })
 
 	if i < len(profiles) && profiles[i].FileName == p.FileName {
@@ -55,12 +62,19 @@ func AddProfile(profiles []*cover.Profile, p *cover.Profile) ([]*cover.Profile, 
 //
 // The output starts with a single `mode: ...` line followed by one line per
 // block. It returns ErrEmptyProfiles when profiles is empty.
-func WriteProfiles(profiles []*cover.Profile, out io.Writer) error {
+func WriteProfiles(profiles []*Profile, out io.Writer) error {
 	if len(profiles) == 0 {
 		return ErrEmptyProfiles
 	}
 
-	_, err := fmt.Fprintf(out, "mode: %s\n", profiles[0].Mode)
+	mode := profiles[0].Mode
+	for _, p := range profiles[1:] {
+		if p.Mode != mode {
+			return ErrInvalidMode
+		}
+	}
+
+	_, err := fmt.Fprintf(out, "mode: %s\n", mode)
 	if err != nil {
 		return err
 	}
@@ -77,7 +91,7 @@ func WriteProfiles(profiles []*cover.Profile, out io.Writer) error {
 	return nil
 }
 
-func mergeProfiles(p, merge *cover.Profile) error {
+func mergeProfiles(p, merge *Profile) error {
 	if p.Mode != merge.Mode {
 		return ErrInvalidMode
 	}
@@ -97,9 +111,10 @@ func mergeProfiles(p, merge *cover.Profile) error {
 	return nil
 }
 
-func mergeProfileBlock(p *cover.Profile, pb cover.ProfileBlock, startIndex int) (int, error) {
-	if startIndex >= len(p.Blocks) { // no more to merge
-		return startIndex, nil
+func mergeProfileBlock(p *Profile, pb ProfileBlock, startIndex int) (int, error) {
+	if startIndex >= len(p.Blocks) { // no more to merge, append the remaining blocks
+		p.Blocks = append(p.Blocks, pb)
+		return len(p.Blocks), nil
 	}
 
 	sortFunc := func(i int) bool {
@@ -132,14 +147,14 @@ func mergeProfileBlock(p *cover.Profile, pb cover.ProfileBlock, startIndex int) 
 	} else {
 		if i > 0 {
 			pa := p.Blocks[i-1]
-			if pa.EndLine >= pb.EndLine && (pa.EndLine != pb.EndLine || pa.EndCol > pb.EndCol) {
+			if pa.EndLine > pb.StartLine || (pa.EndLine == pb.StartLine && pa.EndCol > pb.StartCol) {
 				return 0, fmt.Errorf("overlap before: %v %v %v", p.FileName, pa, pb)
 			}
 		}
 
-		if i < len(p.Blocks)-1 {
-			pa := p.Blocks[i+1]
-			if pa.StartLine <= pb.StartLine && (pa.StartLine != pb.StartLine || pa.StartCol < pb.StartCol) {
+		if i < len(p.Blocks) {
+			pa := p.Blocks[i]
+			if pa.StartLine < pb.EndLine || (pa.StartLine == pb.EndLine && pa.StartCol < pb.EndCol) {
 				return 0, fmt.Errorf("overlap after: %v %v %v", p.FileName, pa, pb)
 			}
 		}
