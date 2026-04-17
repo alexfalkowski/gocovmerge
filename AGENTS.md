@@ -2,6 +2,13 @@
 
 This repository is a small Go CLI tool (`gocovmerge`) that merges multiple Go coverage profiles (from `go test -coverprofile`) into a single profile.
 
+## Shared skill
+
+Use the shared `coding-standards` skill from `./bin/skills/coding-standards`
+for cross-repository coding, review, testing, documentation, and PR
+conventions. Treat this `AGENTS.md` as the repo-specific companion to that
+skill.
+
 ## Repo map
 
 - `main.go`: CLI entrypoint. Parses flags, resolves input files, constructs the output writer, runs the merge, and finalizes file output.
