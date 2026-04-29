@@ -4,10 +4,7 @@ This repository is a small Go CLI tool (`gocovmerge`) that merges multiple Go co
 
 ## Shared skill
 
-Use the shared `coding-standards` skill from `./bin/skills/coding-standards`
-for cross-repository coding, review, testing, documentation, and PR
-conventions. Treat this `AGENTS.md` as the repo-specific companion to that
-skill.
+Use the shared `coding-standards` skill from `bin/skills/coding-standards` for code changes, bug fixes, refactors, reviews, tests, linting, documentation, PR summaries, commits, Makefile changes, CI validation, and verification.
 
 ## Repo map
 
