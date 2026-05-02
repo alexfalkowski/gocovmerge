@@ -7,6 +7,8 @@ linters:
     - depguard
     - funcorder
     - gochecknoglobals
+    - goconst
+    - gomodguard_v2
     - ireturn
     - nilnil
     - nlreturn
