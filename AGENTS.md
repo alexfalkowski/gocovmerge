@@ -2,9 +2,11 @@
 
 This repository is a small Go CLI tool (`gocovmerge`) that merges multiple Go coverage profiles (from `go test -coverprofile`) into a single profile.
 
-## Shared skill
+## Shared skills
 
-Use the shared `coding-standards` skill from `bin/skills/coding-standards` for code changes, bug fixes, refactors, reviews, tests, linting, documentation, PR summaries, commits, Makefile changes, CI validation, and verification.
+This repository uses the shared skills from `bin/skills/`. Read
+`bin/AGENTS.md` for the canonical shared skill list and use the smallest
+matching skill for the task.
 
 ## Repo map
 
