@@ -25,6 +25,9 @@ type ProfileBlock = cover.ProfileBlock
 // profiles that do not all share the same coverage mode.
 var ErrInvalidMode = errors.New("invalid profiles merge with different modes")
 
+// ErrUnsupportedMode is returned when a profile uses an unknown coverage mode.
+var ErrUnsupportedMode = errors.New("unsupported covermode")
+
 // ErrEmptyProfiles is returned by WriteProfiles when there are no profiles to
 // write.
 var ErrEmptyProfiles = errors.New("empty profiles")
@@ -46,6 +49,10 @@ func ParseProfiles(fileName string) ([]*Profile, error) {
 // must also agree on NumStmt; otherwise AddProfile returns an error. Overlapping
 // or otherwise incompatible blocks are rejected.
 func AddProfile(profiles []*Profile, p *Profile) ([]*Profile, error) {
+	if err := validateMode(p.Mode); err != nil {
+		return nil, err
+	}
+
 	if len(profiles) > 0 && profiles[0].Mode != p.Mode {
 		return nil, ErrInvalidMode
 	}
@@ -77,7 +84,15 @@ func WriteProfiles(profiles []*Profile, out io.Writer) error {
 	}
 
 	mode := profiles[0].Mode
+	if err := validateMode(mode); err != nil {
+		return err
+	}
+
 	for _, p := range profiles[1:] {
+		if err := validateMode(p.Mode); err != nil {
+			return err
+		}
+
 		if p.Mode != mode {
 			return ErrInvalidMode
 		}
@@ -169,10 +184,19 @@ func mergeSameBlock(p *Profile, index int, block ProfileBlock) error {
 	case "count", "atomic":
 		p.Blocks[index].Count += block.Count
 	default:
-		return fmt.Errorf("unsupported covermode: '%s'", p.Mode)
+		return fmt.Errorf("%w: %q", ErrUnsupportedMode, p.Mode)
 	}
 
 	return nil
+}
+
+func validateMode(mode string) error {
+	switch mode {
+	case "set", "count", "atomic":
+		return nil
+	default:
+		return fmt.Errorf("%w: %q", ErrUnsupportedMode, mode)
+	}
 }
 
 func insertBlock(p *Profile, index int, block ProfileBlock) error {

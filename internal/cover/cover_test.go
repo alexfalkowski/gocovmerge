@@ -19,6 +19,20 @@ func TestWriteProfilesRejectsDifferentModes(t *testing.T) {
 	require.ErrorIs(t, err, cover.ErrInvalidMode)
 }
 
+func TestWriteProfilesRejectsUnsupportedMode(t *testing.T) {
+	profiles := []*cover.Profile{
+		test.Profile("a.go", "bogus", test.Block(1, 1, 1, 2, 1)),
+	}
+
+	err := cover.WriteProfiles(profiles, &bytes.Buffer{})
+	require.ErrorIs(t, err, cover.ErrUnsupportedMode)
+}
+
+func TestAddProfileRejectsUnsupportedMode(t *testing.T) {
+	_, err := cover.AddProfile(nil, test.Profile("a.go", "bogus", test.Block(1, 1, 1, 2, 1)))
+	require.ErrorIs(t, err, cover.ErrUnsupportedMode)
+}
+
 func TestAddProfileAppendsTrailingBlocks(t *testing.T) {
 	profiles := []*cover.Profile{
 		test.Profile("a.go", "set", test.Block(1, 1, 1, 2, 1)),
