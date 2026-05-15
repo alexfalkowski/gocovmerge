@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"os"
+	"path/filepath"
 )
 
 // Writer is the output sink used by the CLI.
@@ -52,15 +53,33 @@ func (o *fileOutput) Write(p []byte) (int, error) {
 }
 
 func (o *fileOutput) Close() error {
-	file, err := os.Create(o.path)
+	dir := filepath.Dir(o.path)
+	file, err := os.CreateTemp(dir, ".gocovmerge-*")
 	if err != nil {
 		return err
 	}
+
+	name := file.Name()
+	committed := false
+	defer func() {
+		if !committed {
+			_ = os.Remove(name)
+		}
+	}()
 
 	if _, err := o.buffer.WriteTo(file); err != nil {
 		_ = file.Close()
 		return err
 	}
 
-	return file.Close()
+	if err := file.Close(); err != nil {
+		return err
+	}
+
+	if err := os.Rename(name, o.path); err != nil {
+		return err
+	}
+
+	committed = true
+	return nil
 }
