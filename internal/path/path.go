@@ -2,6 +2,7 @@ package path
 
 import (
 	"io/fs"
+	"os"
 	"path/filepath"
 	"regexp"
 )
@@ -59,7 +60,31 @@ func abs(path string) (string, error) {
 	if len(path) == 0 {
 		return "", nil
 	}
-	return filepath.Abs(path)
+
+	absolute, err := filepath.Abs(path)
+	if err != nil {
+		return "", err
+	}
+
+	canonical, err := filepath.EvalSymlinks(absolute)
+	if err != nil {
+		if !os.IsNotExist(err) {
+			return "", err
+		}
+
+		return filepath.Join(canonicalDir(absolute), filepath.Base(absolute)), nil
+	}
+
+	return canonical, nil
+}
+
+func canonicalDir(path string) string {
+	dir, err := filepath.EvalSymlinks(filepath.Dir(path))
+	if err != nil {
+		return filepath.Dir(path)
+	}
+
+	return dir
 }
 
 func regex(pattern string) (*regexp.Regexp, error) {

@@ -17,6 +17,8 @@ import (
 
 var errWriteFailed = errors.New("write failed")
 
+const failedParseProfiles = "failed to parse profiles"
+
 func TestRunScenarios(t *testing.T) {
 	for _, tt := range runScenarioCases {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -29,7 +31,7 @@ func TestMainEntrypoint(t *testing.T) {
 	t.Helper()
 
 	if os.Getenv("GO_WANT_MAIN") == "1" {
-		os.Args = []string{"gocovmerge", os.Getenv("GO_WANT_MAIN_PROFILE")}
+		os.Args = []string{"gocovmerge", os.Getenv("GO_WANT_MAIN_ARG")}
 		main()
 		return
 	}
@@ -45,10 +47,52 @@ func TestMainEntrypoint(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
+	cases := []struct {
+		name               string
+		arg                string
+		wantStdout         string
+		wantStderrContains []string
+		wantExit           int
+	}{
+		{
+			name:       "success",
+			arg:        profilePath,
+			wantExit:   0,
+			wantStdout: test.TextProfile("set", test.TextBlock("foo.go", 1, 1, 1, 2, 1, 1)),
+		},
+		{
+			name:     "failure",
+			arg:      filepath.Join(dir, "missing.out"),
+			wantExit: 1,
+			wantStderrContains: []string{
+				failedParseProfiles,
+				"missing.out",
+			},
+		},
+	}
+
+	for _, tt := range cases {
+		t.Run(tt.name, func(t *testing.T) {
+			stdout, stderr := executeMainEntrypoint(t, ctx, executable, tt.arg, tt.wantExit)
+
+			require.Equal(t, tt.wantStdout, stdout.String())
+			for _, want := range tt.wantStderrContains {
+				require.Contains(t, stderr.String(), want)
+			}
+			if len(tt.wantStderrContains) == 0 {
+				require.Empty(t, stderr.String())
+			}
+		})
+	}
+}
+
+func executeMainEntrypoint(t *testing.T, ctx context.Context, executable, arg string, wantExit int) (bytes.Buffer, bytes.Buffer) {
+	t.Helper()
+
 	cmd := exec.CommandContext(ctx, executable, "-test.run=^TestMainEntrypoint$")
 	cmd.Env = append(os.Environ(),
 		"GO_WANT_MAIN=1",
-		"GO_WANT_MAIN_PROFILE="+profilePath,
+		"GO_WANT_MAIN_ARG="+arg,
 	)
 
 	var stdout bytes.Buffer
@@ -56,12 +100,16 @@ func TestMainEntrypoint(t *testing.T) {
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 
-	err = cmd.Run()
-	require.NoErrorf(t, err, "expected main to succeed with stderr %q", stderr.String())
+	err := cmd.Run()
+	if wantExit == 0 {
+		require.NoErrorf(t, err, "expected main to succeed with stderr %q", stderr.String())
+	} else {
+		var exitError *exec.ExitError
+		require.ErrorAs(t, err, &exitError)
+		require.Equal(t, wantExit, exitError.ExitCode())
+	}
 
-	want := test.TextProfile("set", test.TextBlock("foo.go", 1, 1, 1, 2, 1, 1))
-	require.Equal(t, want, stdout.String())
-	require.Empty(t, stderr.String())
+	return stdout, stderr
 }
 
 var runScenarioCases = []test.RunScenario{
@@ -115,7 +163,7 @@ var runScenarioCases = []test.RunScenario{
 		WantStdout:      "",
 		WantStderrEmpty: false,
 		WantStderrContains: []string{
-			"failed to parse profiles",
+			failedParseProfiles,
 			"missing.out",
 		},
 	},
@@ -196,6 +244,24 @@ var runScenarioCases = []test.RunScenario{
 		WantStderrEmpty: true,
 	},
 	{
+		Name: "atomic mode merges counts by addition",
+		Setup: func(t *testing.T, dir string) []string {
+			t.Helper()
+
+			first := test.WriteProfileFile(t, dir, "a.out", test.TextProfile("atomic",
+				test.TextBlock("foo.go", 1, 1, 1, 2, 1, 1),
+			))
+			second := test.WriteProfileFile(t, dir, "b.out", test.TextProfile("atomic",
+				test.TextBlock("foo.go", 1, 1, 1, 2, 1, 2),
+			))
+
+			return []string{first, second}
+		},
+		WantExit:        0,
+		WantStdout:      test.TextProfile("atomic", test.TextBlock("foo.go", 1, 1, 1, 2, 1, 3)),
+		WantStderrEmpty: true,
+	},
+	{
 		Name: "non overlapping blocks are inserted in order",
 		Setup: func(t *testing.T, dir string) []string {
 			t.Helper()
@@ -238,6 +304,39 @@ var runScenarioCases = []test.RunScenario{
 			test.TextBlock("a.go", 1, 1, 1, 2, 1, 1),
 			test.TextBlock("b.go", 2, 1, 2, 2, 1, 1),
 		),
+		WantStderrEmpty: true,
+	},
+	{
+		Name: "directory input filters nested files by walked path",
+		Setup: func(t *testing.T, dir string) []string {
+			t.Helper()
+
+			test.WriteProfileFile(t, filepath.Join(dir, "nested"), "selected.cov", test.TextProfile("set",
+				test.TextBlock("nested.go", 1, 1, 1, 2, 1, 1),
+			))
+			test.WriteProfileFile(t, dir, "ignored.cov", test.TextProfile("set",
+				test.TextBlock("ignored.go", 2, 1, 2, 2, 1, 1),
+			))
+
+			return []string{"-d", dir, "-p", `nested[/\\].*\.cov$`}
+		},
+		WantExit:        0,
+		WantStdout:      test.TextProfile("set", test.TextBlock("nested.go", 1, 1, 1, 2, 1, 1)),
+		WantStderrEmpty: true,
+	},
+	{
+		Name: "directory input ignores positional args",
+		Setup: func(t *testing.T, dir string) []string {
+			t.Helper()
+
+			test.WriteProfileFile(t, dir, "a.out", test.TextProfile("set",
+				test.TextBlock("dir.go", 1, 1, 1, 2, 1, 1),
+			))
+
+			return []string{"-d", dir, filepath.Join(dir, "missing.out")}
+		},
+		WantExit:        0,
+		WantStdout:      test.TextProfile("set", test.TextBlock("dir.go", 1, 1, 1, 2, 1, 1)),
 		WantStderrEmpty: true,
 	},
 	{
@@ -349,7 +448,7 @@ var fileOutputScenarioCases = []test.FileOutputScenario{
 		WantExit:        1,
 		WantStderrEmpty: false,
 		WantStderrContains: []string{
-			"failed to parse profiles",
+			failedParseProfiles,
 		},
 		Check: func(t *testing.T, dir, stdout, _ string) {
 			t.Helper()
@@ -455,6 +554,28 @@ func TestRunDirectoryInputExcludesExistingOutputFile(t *testing.T) {
 	}
 
 	got, err := os.ReadFile(output)
+	require.NoError(t, err)
+
+	want, err := os.ReadFile(input)
+	require.NoError(t, err)
+	require.Equal(t, string(want), string(got))
+}
+
+func TestRunDirectoryInputExcludesRelativeOutputFile(t *testing.T) {
+	dir := t.TempDir()
+	t.Chdir(dir)
+
+	input := test.WriteProfileFile(t, dir, "a.out", test.TextProfile("count",
+		test.TextBlock("foo.go", 1, 1, 1, 2, 1, 1),
+	))
+
+	for i := range 2 {
+		exitCode, stdout, stderr := test.ExecuteRun(t, run, []string{"-d", dir, "-o", "merged.out"}, nil)
+		require.Equalf(t, 0, exitCode, "run %d stderr: %q", i+1, stderr)
+		require.Emptyf(t, stdout, "run %d expected file output to keep stdout empty", i+1)
+	}
+
+	got, err := os.ReadFile(filepath.Join(dir, "merged.out"))
 	require.NoError(t, err)
 
 	want, err := os.ReadFile(input)

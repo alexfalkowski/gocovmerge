@@ -33,6 +33,16 @@ func TestAddProfileRejectsUnsupportedMode(t *testing.T) {
 	require.ErrorIs(t, err, cover.ErrUnsupportedMode)
 }
 
+func TestAddProfileKeepsProfilesSortedByFileName(t *testing.T) {
+	profiles := []*cover.Profile{
+		test.Profile("b.go", "set", test.Block(1, 1, 1, 2, 1)),
+	}
+
+	merged, err := cover.AddProfile(profiles, test.Profile("a.go", "set", test.Block(1, 1, 1, 2, 1)))
+	require.NoError(t, err)
+	require.Equal(t, []string{"a.go", "b.go"}, []string{merged[0].FileName, merged[1].FileName})
+}
+
 func TestAddProfileAppendsTrailingBlocks(t *testing.T) {
 	profiles := []*cover.Profile{
 		test.Profile("a.go", "set", test.Block(1, 1, 1, 2, 1)),
@@ -54,4 +64,13 @@ func TestAddProfileRejectsOverlapAfter(t *testing.T) {
 
 	_, err := cover.AddProfile(profiles, test.Profile("a.go", "set", test.Block(1, 4, 2, 2, 1)))
 	require.ErrorContains(t, err, "overlap after")
+}
+
+func TestAddProfileRejectsSameStartDifferentEnd(t *testing.T) {
+	profiles := []*cover.Profile{
+		test.Profile("a.go", "set", test.Block(1, 1, 1, 5, 1)),
+	}
+
+	_, err := cover.AddProfile(profiles, test.Profile("a.go", "set", test.Block(1, 1, 1, 10, 1)))
+	require.ErrorContains(t, err, "overlap merge")
 }

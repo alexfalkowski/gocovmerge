@@ -4,3 +4,5 @@ dist
 *.cov
 *.xml
 *.html
+.source-key
+ISSUES.md
