@@ -57,7 +57,7 @@ jobs:
     resource_class: arm.large
   sync:
     docker:
-      - image: alexfalkowski/release:8.14
+      - image: alexfalkowski/release:8.15
     working_directory: ~/gocovmerge
     steps:
       - checkout:
@@ -68,7 +68,7 @@ jobs:
     resource_class: arm.large
   version:
     docker:
-      - image: alexfalkowski/release:8.14
+      - image: alexfalkowski/release:8.15
     working_directory: ~/gocovmerge
     steps:
       - checkout:
