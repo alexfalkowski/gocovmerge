@@ -91,6 +91,7 @@ gocovmerge -d ./coverage -p '.*\.cov$' > cover.out
 
 - If `-o` is provided, output is written to that file.
 - If `-o` is provided, the merged profile is buffered first and the destination file is only created/truncated after a successful merge.
+- The parent directory for `-o` must already exist.
 - If `-o` is not provided, output is written to stdout.
 - With explicit positional arguments, `-o` may point at one of the input files because the input is read before the final output file is written.
 

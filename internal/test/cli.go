@@ -95,7 +95,9 @@ func RunFileOutputScenarioCase(t *testing.T, run RunFunc, tt FileOutputScenario)
 	}
 }
 
-// ExecuteRun executes run with in-memory stdout and stderr buffers.
+// ExecuteRun executes run with an in-memory stderr buffer. If stdoutWriter is
+// nil, stdout is captured in memory and returned. Otherwise stdout is written to
+// stdoutWriter and the returned stdout string is empty.
 func ExecuteRun(t *testing.T, run RunFunc, args []string, stdoutWriter io.Writer) (int, string, string) {
 	t.Helper()
 

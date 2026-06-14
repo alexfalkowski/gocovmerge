@@ -39,6 +39,8 @@ Tests currently live in:
 
 - `main_test.go`
 - `internal/cover/cover_test.go`
+- `internal/io/io_test.go`
+- `internal/path/path_test.go`
 - `internal/test`: shared test helpers and scenario scaffolding used by the test suites above.
 
 ## CI
@@ -57,6 +59,7 @@ The main build job runs:
 - `make specs`
 - `make build`
 - `make coverage`
+- `make codecov-upload`
 
 Artifacts and test results are stored from `test/reports`.
 
@@ -74,5 +77,5 @@ Artifacts and test results are stored from `test/reports`.
 ## Conventions
 
 - Prefer wrapped errors with context via `fmt.Errorf("...: %w", err)`.
-- Sentinel errors in `internal/cover`: `ErrInvalidMode`, `ErrEmptyProfiles`.
+- Sentinel errors in `internal/cover`: `ErrInvalidMode`, `ErrUnsupportedMode`, `ErrEmptyProfiles`.
 - Go files and Makefiles use tabs (`.editorconfig`).
