@@ -36,6 +36,9 @@ type RunScenario struct {
 
 // FileOutputScenario describes one CLI test case that writes merged output to a
 // file via `-o`.
+//
+// Setup is required and must return the complete CLI argument list for the
+// scenario.
 type FileOutputScenario struct {
 	Name               string
 	Setup              func(t *testing.T, dir string) []string

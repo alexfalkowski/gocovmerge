@@ -44,7 +44,7 @@ Usage of gocovmerge:
   -o string
         output file (if missing stdout)
   -p string
-        pattern to filter directory (if missing all files)
+        regexp pattern to filter directory (if missing all files)
 ```
 
 `-help` prints usage and exits with status `0`. Parse errors and runtime errors
@@ -152,6 +152,17 @@ If profiles refer to different versions of the same file, block boundaries may d
 > [!IMPORTANT]
 > Merge only profiles produced from the same checkout or commit. Coverage block positions are source-dependent, so profiles from different revisions can be incompatible even when file names match.
 
+### 🧾 Profile filenames must match exactly
+
+Profiles are grouped by the exact `Profile.FileName` string from each coverage
+profile. `gocovmerge` does not normalize, relativize, or otherwise reconcile
+filenames.
+
+If different shards write the same source file with different path spellings
+(for example absolute paths in one profile and relative paths in another), those
+entries are kept separate instead of being merged, and the command can still
+succeed.
+
 ### 🎛️ Coverage modes must match
 
 Profiles must use the same coverage mode (`set`, `count`, or `atomic`) across
@@ -183,7 +194,7 @@ excluding `-o`), there are no profiles to write and the command fails.
 ## 📝 Notes
 
 - The merged output is a standard Go coverage profile: a single `mode: ...` header line followed by block lines.
-- Merging is performed per `Profile.FileName`; within a file:
+- Merging is performed per exact `Profile.FileName` string; within a file:
   - `set` mode merges counts using bitwise OR.
   - `count` and `atomic` modes merge counts by summing.
   - same-position blocks must also agree on `NumStmt`.

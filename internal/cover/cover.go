@@ -44,11 +44,16 @@ func ParseProfiles(fileName string) ([]*Profile, error) {
 // the same filename if present.
 //
 // profiles must already be sorted by Profile.FileName and contain one coverage
-// mode, typically because it was produced by prior AddProfile calls. The returned
-// slice is kept sorted by Profile.FileName. If a profile with the same FileName
-// already exists, blocks from p are merged into it. Blocks with the same
-// coordinates must also agree on NumStmt; otherwise AddProfile returns an error.
-// Overlapping or otherwise incompatible blocks are rejected.
+// mode, typically because it was produced by prior AddProfile calls. Existing
+// blocks and p.Blocks must also be sorted by block start position, typically by
+// ParseProfiles. The returned slice is kept sorted by Profile.FileName.
+//
+// AddProfile mutates existing profiles when merging counts and inserts p
+// directly when adding a new filename; it does not deep-copy profile data. If a
+// profile with the same FileName already exists, blocks from p are merged into
+// it. Blocks with the same coordinates must also agree on NumStmt; otherwise
+// AddProfile returns an error. Overlapping or otherwise incompatible blocks are
+// rejected.
 func AddProfile(profiles []*Profile, p *Profile) ([]*Profile, error) {
 	if err := validateMode(p.Mode); err != nil {
 		return nil, err
