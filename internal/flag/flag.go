@@ -18,10 +18,11 @@ var ErrHelp = flag.ErrHelp
 //   - `-d`: directory containing coverage profiles (if empty, positional args are used)
 //   - `-p`: regexp pattern to filter files when `-d` is set (if empty, all files are included)
 //
-// Any remaining positional arguments after flags are treated as coverage profile
-// paths. When output is non-nil, flag usage and parse errors are written there.
-// When output is nil, the flag package's default stderr output is used; pass
-// io.Discard to suppress flag output.
+// Any remaining positional arguments after flags are retained for explicit-file
+// mode; Values.Files ignores them when `-d` is set. When output is non-nil,
+// flag usage and parse errors are written there. When output is nil, the flag
+// package's default stderr output is used; pass io.Discard to suppress flag
+// output.
 func Parse(args []string, output io.Writer) (*Values, error) {
 	set := flag.NewFlagSet("gocovmerge", flag.ContinueOnError)
 	if output != nil {
@@ -30,7 +31,7 @@ func Parse(args []string, output io.Writer) (*Values, error) {
 
 	out := set.String("o", "", "output file (if missing stdout)")
 	dir := set.String("d", "", "directory of files (if missing paths passed in)")
-	pattern := set.String("p", "", "pattern to filter directory (if missing all files)")
+	pattern := set.String("p", "", "regexp pattern to filter directory (if missing all files)")
 
 	if err := set.Parse(args); err != nil {
 		return nil, err
