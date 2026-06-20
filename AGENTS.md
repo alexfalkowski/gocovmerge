@@ -1,6 +1,7 @@
 # AGENTS.md
 
-This repository is a small Go CLI tool (`gocovmerge`) that merges multiple Go coverage profiles (from `go test -coverprofile`) into a single profile.
+This repository is a small Go CLI tool (`gocovmerge`) that merges multiple Go
+coverage profiles into a single profile.
 
 ## Shared guidance
 
@@ -19,19 +20,18 @@ Use `bin/AGENTS.md` for shared skills and cross-repository defaults.
 
 ## Tooling
 
-- Go version: `go 1.26.0`.
+- Go toolchain details live in `go.mod`.
 - The repo uses vendoring (`-mod vendor`).
 - If the `bin/` submodule is missing, `make` targets will fail.
 
 Useful commands:
 
-- `make dep`: `go mod download`, `go mod tidy`, `go mod vendor`
+- `make dep`: refresh dependencies and vendor state
 - `make build`: build `gocovmerge`
-- `make lint`: field alignment + `golangci-lint`
-- `make sec`: `govulncheck -show verbose -test ./...`
-- `make specs`: race-enabled test run with coverage via `gotestsum`
+- `make lint`: run repository linting
+- `make sec`: run repository security checks
+- `make specs`: run the repository test target
 - `make coverage`: post-process `test/reports/profile.cov`
-- `go test -mod=vendor ./...`: quick local test run
 
 Tests currently live in:
 
@@ -45,9 +45,8 @@ Tests currently live in:
 
 CircleCI config: `.circleci/config.yml`.
 
-The main build job runs:
+The main build job initializes submodules, then runs:
 
-- `git submodule sync` / `git submodule update --init`
 - `make source-key`
 - `make clean`
 - `make dep`
