@@ -32,13 +32,13 @@ jobs:
       - restore_cache:
           name: restore deps
           keys:
-            - gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
+            - gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
             - gocovmerge-go-cache-
       - run: make clean
       - run: make dep
       - save_cache:
           name: save deps
-          key: gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}-{{ checksum ".source-key" }}
+          key: gocovmerge-go-cache-{{ checksum "go.sum" }}-{{ checksum "~/.go-version" }}
           paths:
             - ~/go/pkg/mod
       - restore_cache:
