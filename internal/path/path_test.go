@@ -54,6 +54,16 @@ func TestFilesReportsExcludedPathSymlinkLoop(t *testing.T) {
 	require.Nil(t, files)
 }
 
+func TestFilesReportsWalkedPathSymlinkLoop(t *testing.T) {
+	dir := t.TempDir()
+	loop := filepath.Join(dir, "loop")
+	require.NoError(t, os.Symlink(loop, loop))
+
+	files, err := path.Files(dir, "", filepath.Join(dir, "merged.out"))
+	require.Error(t, err)
+	require.Nil(t, files)
+}
+
 func TestFilesReportsInvalidPattern(t *testing.T) {
 	files, err := path.Files(t.TempDir(), "[", "")
 	require.Error(t, err)
