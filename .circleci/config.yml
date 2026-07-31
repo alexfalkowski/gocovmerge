@@ -17,7 +17,7 @@ executors:
       - image: alexfalkowski/go:4.32
   release:
     docker:
-      - image: alexfalkowski/release:8.27
+      - image: alexfalkowski/release:8.28
   alpine:
     docker:
       - image: alpine:latest
