@@ -14,10 +14,10 @@ commands:
 executors:
   go:
     docker:
-      - image: alexfalkowski/go:4.38
+      - image: alexfalkowski/go:4.39
   release:
     docker:
-      - image: alexfalkowski/release:8.29
+      - image: alexfalkowski/release:8.30
   alpine:
     docker:
       - image: alpine:latest
