@@ -19,6 +19,7 @@ linters:
     - wrapcheck
     - wsl
     - wsl_v5
+    - exhaustruct_v5
   settings:
     cyclop:
       max-complexity: 21
