@@ -33,6 +33,21 @@ go build -o gocovmerge .
 ./gocovmerge -help
 ```
 
+When creating pull requests with [GitHub CLI](https://cli.github.com/), install
+`gh` and authenticate with `gh auth login`, then run this setup once per clone:
+
+```bash
+git submodule sync && git submodule update --init
+make gh-default
+```
+
+This replaces any previous default repository with `origin` in the clone's
+local Git configuration, so `gh pr create` targets your origin repository
+instead of the repository it was forked from.
+
+The shared Make tooling uses Git, Make, and Ruby. Initializing the `bin/`
+submodule requires GitHub SSH access.
+
 ## 🚀 Usage
 
 ```bash
