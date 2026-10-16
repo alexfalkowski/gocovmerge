@@ -14,7 +14,7 @@ commands:
 executors:
   go:
     docker:
-      - image: alexfalkowski/go:5.14
+      - image: alexfalkowski/go:5.15
   release:
     docker:
       - image: alexfalkowski/release:8.38
