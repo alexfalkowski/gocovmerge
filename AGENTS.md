@@ -7,6 +7,13 @@ coverage profiles into a single profile.
 
 Use `bin/AGENTS.md` for shared skills and cross-repository defaults.
 
+## Accepted design
+
+Read the [accepted-design index](docs/agents/accepted-design.md) and the relevant
+area files before proposing a change or recording a finding or audit entry.
+Apply each decision within its documented scope and record new owner-accepted
+decisions in the relevant area file.
+
 ## Repo map
 
 - `main.go`: CLI entrypoint. Parses flags, resolves input files, constructs the output writer, runs the merge, and finalizes file output.
@@ -59,17 +66,6 @@ The main build job initializes submodules, then runs:
 - `make codecov-upload`
 
 Artifacts and test results are stored from `test/reports`.
-
-## Merge gotchas
-
-- All profiles must use the same coverage mode: `set`, `count`, or `atomic`.
-- Merging is per `Profile.FileName`.
-- Same-position blocks must also agree on `NumStmt`.
-- Overlapping or otherwise incompatible blocks fail the merge.
-- When `-d` is used and `-o` points inside the scanned directory, the output path is excluded from discovered inputs so rerunning the same command does not re-merge the old output.
-- When `-o` is used, file output is buffered and only written on successful completion.
-- Diagnostics go to stderr; stdout is reserved for merged profile output.
-- Only merge profiles generated from the same source revision.
 
 ## Conventions
 
